@@ -11,10 +11,10 @@ body {
 }
 
 .container {
-  max-width: 1050px;
-  width: 90%;
-  margin: auto;
+  width: 100%;
+  margin: 0;
 }
+
 
 .navbar {
   width: 100%;
@@ -26,7 +26,7 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 62px;
-
+  width: 100%;
 }
 
 .navbar .menu-items {
@@ -55,6 +55,7 @@ body {
   display: block;
   position: relative;
   height: 60px;
+
   
 }
 
@@ -106,8 +107,8 @@ body {
 }
 
 .navbar .menu-items {
-    background-color: #1e0505;
-  
+    background-color: #fff;
+  width: 100%;
   padding-top: 120px;
   box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
   height: 100vh;
@@ -115,11 +116,12 @@ body {
   transform: translate(-150%);
   display: flex;
   flex-direction: column;
-  margin-left: -40px;
   padding-left: 50px;
   transition: transform 0.5s ease-in-out;
   text-align: center;
 }
+
+
 
 .navbar .menu-items li {
   margin-bottom: 1.2rem;
@@ -162,3 +164,5 @@ body {
 .nav-container input[type="checkbox"]:checked ~ .logo{
   display: none;
 }
+
+

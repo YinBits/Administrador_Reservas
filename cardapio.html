@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+
+    <link rel="stylesheet" href="./CSS/tables.css">
+
+</head>
+
+<body>
+    <div class="boxed">
+        <div class="container-fluid">
+            <h1 class="titulo">Cardápio</h1>
+            <br>
+            <p><a href="form-add.php" class="btn btn-light">Adicionar Cardápio</a></p>
+
+        </div>
+        <br>
+        <h2>Sistema de Cardápio</h2>
+
+
+
+        <table class="table table-striped table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Imagem do Prato</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Preço</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                <tr>
+
+                    <td>
+                        <?=$user['Imagem'] ?>
+                    </td>
+                    <td>
+                        <?=$user['Nome'] ?>
+                    </td>
+                    <td>
+                        <?=$user['Descrição'] ?>
+                    </td>
+                    <td>
+                        <?=$user['Categoria'] ?>
+                    </td>
+                    <td>
+                        <?=$user['Preço'] ?>
+                    </td>
+
+                    <td>
+                        <a href="form-edit.php?id=<?=$user['id'] ?>" class="btn btn-success">Editar</a>
+                        <a href="delete.php?id=<?=$user['id'] ?>" class="btn btn-danger"
+                            onclick="return confirm('Tem certeza de que deseja remover?');">
+                            Remover
+                        </a>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
