@@ -1,0 +1,20 @@
+.boxed{
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+.Titulo{
+text-align: center;
+margin-bottom: 30px;
+}
+.subtitulo{
+    margin-top: 15px;
+    margin-left: 50px;}
+.col-1{
+    width: 50%;
+    float: left;
+}
+.col-2{
+    width: 50%; 
+    float: right;
+}

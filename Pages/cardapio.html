@@ -1,3 +1,8 @@
+<?php
+require_once("../config.php");
+require_once("../firebaseRDB.php")
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -90,7 +95,11 @@
                         </a>
                     </td>
                 </tr>
-                <?php endwhile; ?>
+                <?php
+                $data = $db->retrieve('cardapio');
+                $data = json_decode($data, 1);
+                print_r($data);
+                ?>
             </tbody>
         </table>
     </div>
