@@ -25,10 +25,10 @@
                 </div>
                 <div class="menu-items">
                     <img src="../IMG/Logo_Tina.png" id="logoimg-menu" alt="">
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="Reserva.html">Reserva de Mesas</a></li>
-                    <li><a href="cardapio.html">Cardápio</a></li>
-                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="index.php">Início</a></li>
+                    <li><a href="Reserva.php">Reserva de Mesas</a></li>
+                    <li><a href="cardapio.php">Cardápio</a></li>
+                    <li><a href="eventos.php">Eventos</a></li>
                 </div>
             </div>
         </div>
