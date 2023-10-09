@@ -1,3 +1,9 @@
+<?php
+require_once("../config.php");
+require_once("../firebaseRDB.php");
+
+$db= new firebaseRDB($databaseURL);
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
