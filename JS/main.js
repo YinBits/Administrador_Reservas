@@ -45,7 +45,7 @@ function closeEditModal() {
     document.getElementById("editModal").style.display = "none";
 }
 
-// Adicione um ouvinte de evento aos botões de edição
+// Adicione um ouvinte de evento aos botões "Editar"
 document.querySelectorAll(".editar-button").forEach((button) => {
     button.addEventListener("click", (event) => {
         const cardapioKey = event.target.getAttribute("data-key");
@@ -54,7 +54,6 @@ document.querySelectorAll(".editar-button").forEach((button) => {
         }
     });
 });
-
 
 // Função para deletar um item
 function deleteItem(cardapioKey) {
