@@ -23,6 +23,7 @@ const db = getDatabase(app);
 const cardapioRef = ref(db, "Cardapio");
 
 // Função para abrir o modal de edição
+// Função para abrir o modal de edição
 function openEditModal(cardapioKey) {
     const editModal = document.getElementById("editModal");
     editModal.style.display = "block";
@@ -67,7 +68,9 @@ function openEditModal(cardapioKey) {
     // Ouvinte de evento para o botão "Salvar Alterações"
     const saveButton = document.getElementById("editSaveButton");
     saveButton.addEventListener("click", () => {
-        saveChanges(cardapioKey, file);
+        const cardapioKey = document.getElementById("editCardapioKey").value;
+        const novaImagemFile = editImagemInput.files[0];
+        saveChanges(cardapioKey, novaImagemFile);
     });
 }
 
@@ -88,14 +91,14 @@ function saveChanges(cardapioKey, novaImagemFile) {
     if (novaImagemFile) {
         // Configure o armazenamento do Firebase
         const storage = getStorage(app);
-        const storageRef = ref(storage, `imagens/${novaImagemFile.name}`);
+        const storageRef = storageRef(storage, `imagens/${novaImagemFile.name}`);
 
         // Realize o upload da nova imagem
         const uploadTask = uploadBytes(storageRef, novaImagemFile);
 
         uploadTask.then(async (snapshot) => {
             // A imagem foi enviada com sucesso
-            const downloadURL = await getDownloadURL(storageRef);
+            const downloadURL = await getDownloadURL(snapshot.ref);
 
             // Atualize os dados no Realtime Database
             const cardapioRefKey = ref(db, "Cardapio/" + cardapioKey);
@@ -108,6 +111,7 @@ function saveChanges(cardapioKey, novaImagemFile) {
             }).then(() => {
                 alert("Dados atualizados com sucesso.");
                 closeEditModal();
+                loadCardapioData();
             }).catch((error) => {
                 console.error("Erro ao atualizar dados: " + error);
             });
@@ -125,6 +129,7 @@ function saveChanges(cardapioKey, novaImagemFile) {
         }).then(() => {
             alert("Dados atualizados com sucesso.");
             closeEditModal();
+            loadCardapioData();
         }).catch((error) => {
             console.error("Erro ao atualizar dados: " + error);
         });
