@@ -114,9 +114,7 @@ function deleteItem(cardapioKey) {
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
-    }
-
-    // ... (Seu código anterior)
+    });
 }
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
