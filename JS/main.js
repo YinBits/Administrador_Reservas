@@ -23,36 +23,8 @@ const cardapioRef = ref(db, "Cardapio");
 
 // Função para editar um item
 function editItem(cardapioKey) {
-    // Obtenha a referência do nó do item a ser editado
-    const itemRef = ref(db, `Cardapio/${cardapioKey}`);
-    
-    // Obtenha os dados do item com base na chave
-    get(itemRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            const item = snapshot.val();
-
-            // Preencha os campos do formulário com os dados existentes
-            document.getElementById("editCardapioKey").value = cardapioKey;
-            document.getElementById("editNome").value = item.nome;
-            document.getElementById("editCategoria").value = item.categoria;
-            document.getElementById("editDescricao").value = item.descricao;
-            document.getElementById("editPreco").value = item.preco;
-
-            // Preencha a imagem atual do item
-            const currentImage = document.getElementById("currentImage");
-            currentImage.src = item.imagem;
-
-            // Limpe o campo de upload de imagem
-            document.getElementById("editImagem").value = "";
-
-            // Abra o modal de edição
-            document.getElementById("editModal").style.display = "block";
-        } else {
-            console.error("Item não encontrado no banco de dados.");
-        }
-    }).catch((error) => {
-        console.error("Erro ao obter os dados do item: " + error);
-    });
+    // Implemente a função de edição aqui
+    // Você pode usar um modal semelhante ao código anterior
 }
 
 // Função para deletar um item
@@ -67,25 +39,13 @@ function deleteItem(cardapioKey) {
     });
 }
 
-// Seletor de classe para botões de exclusão
-const deleteButtons = document.querySelectorAll(".delete-button");
-
-// Adicionar um ouvinte de evento a cada botão de exclusão
-deleteButtons.forEach(button => {
-    button.addEventListener("click", function() {
-        const cardapioKey = this.getAttribute("data-cardapio-key");
-        deleteItem(cardapioKey);
-    });
-});
-
-// Seletor de classe para botões de edição
-const editButtons = document.querySelectorAll(".edit-button");
-
-// Adicionar um ouvinte de evento a cada botão de edição
-editButtons.forEach(button => {
-    button.addEventListener("click", function() {
-        const cardapioKey = this.getAttribute("data-cardapio-key");
-        editItem(cardapioKey);
+// Adicione um ouvinte de evento aos botões de exclusão
+document.querySelectorAll(".delete-button").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        const cardapioKey = event.target.getAttribute("data-key");
+        if (cardapioKey) {
+            deleteItem(cardapioKey);
+        }
     });
 });
 
@@ -108,13 +68,22 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button class="delete-button" data-cardapio-key="${key}">Excluir</button>
-                            <button class="edit-button" data-cardapio-key="${key}">Editar</button>
+                            <button class="delete-button" data-key="${key}">Excluir</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
                 }
             }
+
+            // Adicione um ouvinte de evento aos botões de exclusão
+            document.querySelectorAll(".delete-button").forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    const cardapioKey = event.target.getAttribute("data-key");
+                    if (cardapioKey) {
+                        deleteItem(cardapioKey);
+                    }
+                });
+            });
         }
     }).catch((error) => {
         console.error("Erro ao obter os dados: " + error);
