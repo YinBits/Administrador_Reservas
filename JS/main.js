@@ -1,6 +1,6 @@
 // Importar as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getDatabase, ref, get, update, remove } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { getDatabase, ref, get, remove, update } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 // Configuração do Firebase (substitua pelos seus próprios valores)
 const firebaseConfig = {
@@ -24,36 +24,54 @@ const cardapioRef = ref(db, "Cardapio");
 // Função para abrir o modal de edição
 function openEditModal(cardapioKey) {
     const editModal = document.getElementById("editModal");
-    const editCardapioKey = document.getElementById("editCardapioKey");
-    const editNome = document.getElementById("editNome");
-    const editCategoria = document.getElementById("editCategoria");
-    const editDescricao = document.getElementById("editDescricao");
-    const editPreco = document.getElementById("editPreco");
+    editModal.style.display = "block";
+
+    const editImage = document.getElementById("editImagePreview");
+    const editImagemInput = document.getElementById("editImagem");
 
     // Carregue os dados do Firebase com base na chave 'cardapioKey'
+    // e preencha o formulário de edição com os dados do item
     const itemRef = ref(db, `Cardapio/${cardapioKey}`);
     get(itemRef).then((snapshot) => {
         if (snapshot.exists()) {
             const item = snapshot.val();
-            editCardapioKey.value = cardapioKey;
-            editNome.value = item.nome;
-            editCategoria.value = item.categoria;
-            editDescricao.value = item.descricao;
-            editPreco.value = item.preco;
+            document.getElementById("editCardapioKey").value = cardapioKey;
+            document.getElementById("editNome").value = item.nome;
+            document.getElementById("editCategoria").value = item.categoria;
+            document.getElementById("editDescricao").value = item.descricao;
+            document.getElementById("editPreco").value = item.preco;
+            // Preencha outros campos conforme necessário
 
-            // Abra o modal de edição
-            editModal.style.display = "block";
+            // Exiba a imagem atual
+            editImage.src = item.imagem;
         } else {
             console.error("Item não encontrado no banco de dados.");
         }
     }).catch((error) => {
         console.error("Erro ao obter os dados do item: " + error);
     });
+
+    // Ouvinte de evento para o campo de imagem para exibir uma visualização da nova imagem
+    editImagemInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                editImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Ouvinte de evento para o botão "Salvar Alterações"
+    const saveButton = document.getElementById("editSaveButton");
+    saveButton.addEventListener("click", () => {
+        saveChanges(cardapioKey);
+    });
 }
 
 // Função para salvar as alterações
-function saveChanges() {
-    const cardapioKey = document.getElementById("editCardapioKey").value;
+function saveChanges(cardapioKey) {
     const nome = document.getElementById("editNome").value;
     const categoria = document.getElementById("editCategoria").value;
     const descricao = document.getElementById("editDescricao").value;
@@ -66,12 +84,13 @@ function saveChanges() {
     }
 
     // Atualize os dados no Realtime Database
-    const cardapioRefKey = ref(db, `Cardapio/${cardapioKey}`);
+    const cardapioRefKey = ref(db, "Cardapio/" + cardapioKey);
     update(cardapioRefKey, {
         nome: nome,
         categoria: categoria,
         descricao: descricao,
-        preco: preco
+        preco: preco,
+        // Atualize outros campos aqui, se necessário
     }).then(() => {
         alert("Dados atualizados com sucesso.");
         closeEditModal();
@@ -88,35 +107,17 @@ function closeEditModal() {
 
 // Função para deletar um item
 function deleteItem(cardapioKey) {
-    const cardapioRefKey = ref(db, `Cardapio/${cardapioKey}`);
-    remove(cardapioRefKey).then(() => {
+    const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
+    remove(cardapioRef).then(() => {
         alert("Item deletado com sucesso!");
-        // Recarregue os dados após a exclusão
+        // Recarregue os dados após a exclusão (você pode criar uma função separada para isso)
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
-    });
+    }
+
+    // ... (Seu código anterior)
 }
-
-// Adicione um ouvinte de evento aos botões de edição
-document.querySelectorAll(".edit-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        const cardapioKey = event.target.getAttribute("data-key");
-        if (cardapioKey) {
-            openEditModal(cardapioKey);
-        }
-    });
-});
-
-// Adicione um ouvinte de evento aos botões de exclusão
-document.querySelectorAll(".delete-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        const cardapioKey = event.target.getAttribute("data-key");
-        if (cardapioKey) {
-            deleteItem(cardapioKey);
-        }
-    });
-});
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
@@ -131,18 +132,26 @@ function loadCardapioData() {
                     const item = cardapioData[key];
                     const newRow = document.createElement("tr");
                     newRow.innerHTML = `
+                        <td><img src="${item.imagem}" class="thumbnail"></td>
                         <td>${item.nome}</td>
                         <td>${item.categoria}</td>
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button class="edit-button" data-key="${key}">Editar</button>
-                            <button class="delete-button" data-key="${key}">Excluir</button>
+                            <button class="delete-button" data-key="${key}" onclick="deleteItem('${key}')">Excluir</button>
+                            <button class="edit-button" data-key="${key}" onclick="openEditModal('${key}')">Editar</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
                 }
             }
+
+            // Adicione um ouvinte de evento aos botões de exclusão
+            document.querySelectorAll(".delete-button").forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    // Já tratado no HTML dos botões
+                });
+            });
         }
     }).catch((error) => {
         console.error("Erro ao obter os dados: " + error);
