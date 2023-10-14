@@ -23,8 +23,25 @@ const cardapioRef = ref(db, "Cardapio");
 
 // Função para editar um item
 function editItem(cardapioKey) {
-    // Implemente a função de edição aqui
-    // Você pode usar um modal semelhante ao código anterior
+   // Obtenha os dados do item com base na chave
+   const item = cardapioData[cardapioKey];
+
+   // Preencha os campos do formulário com os dados existentes
+   document.getElementById("editCardapioKey").value = cardapioKey;
+   document.getElementById("editNome").value = item.nome;
+   document.getElementById("editCategoria").value = item.categoria;
+   document.getElementById("editDescricao").value = item.descricao;
+   document.getElementById("editPreco").value = item.preco;
+
+   // Preencha a imagem atual do item
+   const currentImage = document.getElementById("currentImage");
+   currentImage.src = item.imagem;
+
+   // Limpe o campo de upload de imagem
+   document.getElementById("editImagem").value = "";
+
+   // Abra o modal de edição
+   document.getElementById("editModal").style.display = "block";
 }
 
 // Função para deletar um item

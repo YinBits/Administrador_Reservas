@@ -66,6 +66,24 @@
             <tbody id="cardapioTableBody"></tbody>
         </table>
     </div>
+    
+    <!-- Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Editar Item</h2>
+            <form id="editForm">
+                <input type="hidden" id="editCardapioKey" value=""> <!-- Adicione este campo oculto para armazenar a chave -->
+                <input type="text" id="editNome" placeholder="Nome">
+                <input type="text" id="editCategoria" placeholder="Categoria">
+                <textarea id="editDescricao" placeholder="Descrição"></textarea>
+                <input type="text" id="editPreco" placeholder="Preço">
+                <input type="file" id="editImagem" accept="image/*"> <!-- Campo de edição de imagem -->
+                <button type="button" onclick="saveChanges()">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
 
         <!-- Import e Configuração do Firebase -->
         <script type="module" src="../JS/main.js"></script>
