@@ -18,9 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Variável para armazenar os dados do cardápio
-let cardapioData = {};  // Inicialize como um objeto vazio
-
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
@@ -63,18 +60,40 @@ function deleteItem(cardapioKey) {
     const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
     remove(cardapioRef).then(() => {
         alert("Item deletado com sucesso!");
-        // Recarregue os dados após a exclusão
+        // Recarregue os dados após a exclusão (você pode criar uma função separada para isso)
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
     });
 }
 
+// Seletor de classe para botões de exclusão
+const deleteButtons = document.querySelectorAll(".delete-button");
+
+// Adicionar um ouvinte de evento a cada botão de exclusão
+deleteButtons.forEach(button => {
+    button.addEventListener("click", function() {
+        const cardapioKey = this.getAttribute("data-cardapio-key");
+        deleteItem(cardapioKey);
+    });
+});
+
+// Seletor de classe para botões de edição
+const editButtons = document.querySelectorAll(".edit-button");
+
+// Adicionar um ouvinte de evento a cada botão de edição
+editButtons.forEach(button => {
+    button.addEventListener("click", function() {
+        const cardapioKey = this.getAttribute("data-cardapio-key");
+        editItem(cardapioKey);
+    });
+});
+
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
     get(cardapioRef).then((snapshot) => {
         if (snapshot.exists()) {
-            cardapioData = snapshot.val();  // Atribua os dados à variável cardapioData
+            const cardapioData = snapshot.val();
             const cardapioTableBody = document.getElementById("cardapioTableBody");
             cardapioTableBody.innerHTML = ""; // Limpar o conteúdo atual da tabela
 
@@ -89,8 +108,8 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button onclick="editItem('${key}')">Editar</button>
-                            <button onclick="deleteItem('${key}')">Excluir</button>
+                            <button class="delete-button" data-cardapio-key="${key}">Excluir</button>
+                            <button class="edit-button" data-cardapio-key="${key}">Editar</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
