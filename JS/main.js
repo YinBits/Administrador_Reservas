@@ -91,7 +91,7 @@ function saveChanges(cardapioKey, novaImagemFile) {
     if (novaImagemFile) {
         // Configure o armazenamento do Firebase
         const storage = getStorage(app);
-        const storageRef = storageRef(storage, `imagens/${novaImagemFile.name}`);
+        const storageRef = storageRef(storage, `ImagensCardapio/${novaImagemFile.name}`);
 
         // Realize o upload da nova imagem
         const uploadTask = uploadBytes(storageRef, novaImagemFile);
