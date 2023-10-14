@@ -39,15 +39,6 @@ function deleteItem(cardapioKey) {
     });
 }
 
-// Adicione um ouvinte de evento aos botões de exclusão
-document.querySelectorAll(".delete-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        const cardapioKey = event.target.getAttribute("data-key");
-        if (cardapioKey) {
-            deleteItem(cardapioKey);
-        }
-    });
-});
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
@@ -68,24 +59,13 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                    
-                           
-                            <button class="delete-button" data-key="${key}">Excluir</button>
+                            <button onclick="editItem('${key}')">Editar</button>
+                            <button onclick="deleteItem('${key}')">Excluir</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
                 }
             }
-
-            // Adicione um ouvinte de evento aos botões de exclusão
-            document.querySelectorAll(".delete-button").forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    const cardapioKey = event.target.getAttribute("data-key");
-                    if (cardapioKey) {
-                        deleteItem(cardapioKey);
-                    }
-                });
-            });
         }
     }).catch((error) => {
         console.error("Erro ao obter os dados: " + error);
