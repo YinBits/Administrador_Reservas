@@ -32,7 +32,7 @@ function openEditModal(cardapioKey) {
     // Carregue os dados do Firebase com base na chave 'cardapioKey'
     // e preencha o formulário de edição com os dados do item
     const itemRef = ref(db, `Cardapio/${cardapioKey}`);
-    get(itemRef).then((snapshot) => {
+    get(itemRef).then(async (snapshot) => {
         if (snapshot.exists()) {
             const item = snapshot.val();
             document.getElementById("editCardapioKey").value = cardapioKey;
@@ -43,7 +43,17 @@ function openEditModal(cardapioKey) {
             // Preencha outros campos conforme necessário
 
             // Exiba a imagem atual
-            editImage.src = item.imagem;
+            if (item.imagem) {
+                // Obtém a URL da imagem do Firebase Storage
+                const storage = getStorage(app);
+                const storageRef = storage.ref(item.imagem);
+                const imageUrl = await getDownloadURL(storageRef);
+                editImage.src = imageUrl;
+            } else {
+                // Caso não haja imagem, você pode exibir uma imagem padrão ou ocultar o elemento de imagem.
+                editImage.src = "caminho-para-imagem-padrao.jpg";
+                // Para ocultar o elemento de imagem: editImage.style.display = "none";
+            }
         } else {
             console.error("Item não encontrado no banco de dados.");
         }
