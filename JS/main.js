@@ -21,9 +21,6 @@ const db = getDatabase(app);
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
-// Função para editar um item
-function editItem(cardapioKey) {
-  // ...
 
 // Função para abrir o modal de edição
 function openEditModal(cardapioKey) {
@@ -43,69 +40,21 @@ function openEditModal(cardapioKey) {
     document.getElementById("editImagem").value = "";
 }
 
-// Função para salvar as alterações
-function saveChanges() {
-    const cardapioKey = document.getElementById("editCardapioKey").value;
-    const novoNome = document.getElementById("editNome").value;
-    const novaCategoria = document.getElementById("editCategoria").value;
-    const novaDescricao = document.getElementById("editDescricao").value;
-    const novoPreco = document.getElementById("editPreco").value;
-
-    // Obtenha o arquivo de imagem selecionado pelo usuário
-    const novaImagem = document.getElementById("editImagem").files[0];
-
-    if (novaImagem) {
-        // Realize o upload da nova imagem para o Firebase Storage e obtenha a URL
-        const storage = getStorage(app);
-        const storageRef = ref(storage, 'imagens/' + novaImagem.name);
-        uploadBytes(storageRef, novaImagem).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((downloadURL) => {
-                // Atualize os dados no Firebase, incluindo a nova URL da imagem
-                const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
-                const updates = {
-                    nome: novoNome,
-                    categoria: novaCategoria,
-                    descricao: novaDescricao,
-                    preco: novoPreco,
-                    imagem: downloadURL, // URL da nova imagem
-                };
-
-                // Atualize os dados no Firebase com as novas informações
-                update(cardapioRef, updates).then(() => {
-                    alert("Alterações salvas com sucesso!");
-                    closeEditModal(); // Feche o modal após salvar as alterações
-                    loadCardapioData(); // Recarregue os dados na tabela
-                }).catch((error) => {
-                    console.error("Erro ao salvar as alterações: " + error);
-                });
-            });
-        }).catch((error) => {
-            console.error("Erro ao fazer upload da imagem: " + error);
-        });
-    } else {
-        // Se o usuário não selecionou uma nova imagem, atualize os dados sem a imagem
-        const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
-        const updates = {
-            nome: novoNome,
-            categoria: novaCategoria,
-            descricao: novaDescricao,
-            preco: novoPreco,
-        };
-
-        // Atualize os dados no Firebase com as novas informações
-        update(cardapioRef, updates).then(() => {
-            alert("Alterações salvas com sucesso!");
-            closeEditModal(); // Feche o modal após salvar as alterações
-            loadCardapioData(); // Recarregue os dados na tabela
-        }).catch((error) => {
-            console.error("Erro ao salvar as alterações: " + error);
-        });
-    }
+// Função para fechar o modal de edição
+function closeEditModal() {
+    document.getElementById("editModal").style.display = "none";
 }
 
-// ...
+// Adicione um ouvinte de evento aos botões de edição
+document.querySelectorAll(".editar-button").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        const cardapioKey = event.target.getAttribute("data-key");
+        if (cardapioKey) {
+            openEditModal(cardapioKey);
+        }
+    });
+});
 
-}
 
 // Função para deletar um item
 function deleteItem(cardapioKey) {
