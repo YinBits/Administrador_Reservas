@@ -40,7 +40,6 @@ function openEditModal(cardapioKey) {
             document.getElementById("editCategoria").value = item.categoria;
             document.getElementById("editDescricao").value = item.descricao;
             document.getElementById("editPreco").value = item.preco;
-            // Preencha outros campos conforme necessário
 
             // Exiba a imagem atual
             editImage.src = item.imagem;
@@ -89,8 +88,7 @@ function saveChanges(cardapioKey) {
         nome: nome,
         categoria: categoria,
         descricao: descricao,
-        preco: preco,
-        // Atualize outros campos aqui, se necessário
+        preco: preco
     }).then(() => {
         alert("Dados atualizados com sucesso.");
         closeEditModal();
@@ -110,7 +108,7 @@ function deleteItem(cardapioKey) {
     const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
     remove(cardapioRef).then(() => {
         alert("Item deletado com sucesso!");
-        // Recarregue os dados após a exclusão (você pode criar uma função separada para isso)
+        // Recarregue os dados após a exclusão
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
@@ -136,27 +134,13 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button class="delete-button" data-key="${key}">Excluir</button>
-                            <button class="edit-button" data-key="${key}">Editar</button>
+                            <button class="delete-button" data-key="${key}" onclick="deleteItem('${key}')">Excluir</button>
+                            <button class="edit-button" data-key="${key}" onclick="openEditModal('${key}')">Editar</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
                 }
             }
-
-            // Adicione um ouvinte de evento aos botões de exclusão
-            document.querySelectorAll(".delete-button").forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    deleteItem(event.target.getAttribute("data-key"));
-                });
-            });
-
-            // Adicione um ouvinte de evento aos botões de edição
-            document.querySelectorAll(".edit-button").forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    openEditModal(event.target.getAttribute("data-key"));
-                });
-            });
         }
     }).catch((error) => {
         console.error("Erro ao obter os dados: " + error);
