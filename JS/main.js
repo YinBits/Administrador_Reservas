@@ -136,8 +136,8 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button class="delete-button" data-key="${key}" onclick="deleteItem('${key}')">Excluir</button>
-                            <button class="edit-button" data-key="${key}" onclick="openEditModal('${key}')">Editar</button>
+                            <button class="delete-button" data-key="${key}">Excluir</button>
+                            <button class="edit-button" data-key="${key}">Editar</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
@@ -147,7 +147,14 @@ function loadCardapioData() {
             // Adicione um ouvinte de evento aos botões de exclusão
             document.querySelectorAll(".delete-button").forEach((button) => {
                 button.addEventListener("click", (event) => {
-                    // Já tratado no HTML dos botões
+                    deleteItem(event.target.getAttribute("data-key"));
+                });
+            });
+
+            // Adicione um ouvinte de evento aos botões de edição
+            document.querySelectorAll(".edit-button").forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    openEditModal(event.target.getAttribute("data-key"));
                 });
             });
         }
