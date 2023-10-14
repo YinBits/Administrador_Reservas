@@ -21,39 +21,11 @@ const db = getDatabase(app);
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
-
-// Função para abrir o modal de edição
-function openEditModal(cardapioKey) {
-    const item = cardapioData[cardapioKey]; // Obtenha os dados do item com base na chave
-    document.getElementById("editNome").value = item.nome;
-    document.getElementById("editCategoria").value = item.categoria;
-    document.getElementById("editDescricao").value = item.descricao;
-    document.getElementById("editPreco").value = item.preco;
-    document.getElementById("editModal").style.display = "block";
-    document.getElementById("editCardapioKey").value = cardapioKey; // Salve a chave do item
-
-    // Preencha a imagem atual do item
-    const currentImage = document.getElementById("currentImage");
-    currentImage.src = item.imagem;
-
-    // Limpe o campo de upload de imagem
-    document.getElementById("editImagem").value = "";
+// Função para editar um item
+function editItem(cardapioKey) {
+    // Implemente a função de edição aqui
+    // Você pode usar um modal semelhante ao código anterior
 }
-
-// Função para fechar o modal de edição
-function closeEditModal() {
-    document.getElementById("editModal").style.display = "none";
-}
-
-// Adicione um ouvinte de evento aos botões "Editar"
-document.querySelectorAll(".editar-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        const cardapioKey = event.target.getAttribute("data-key");
-        if (cardapioKey) {
-            openEditModal(cardapioKey);
-        }
-    });
-});
 
 // Função para deletar um item
 function deleteItem(cardapioKey) {
@@ -97,7 +69,7 @@ function loadCardapioData() {
                         <td>${item.preco}</td>
                         <td>
                     
-                            <button class="editar-button" data-key="${key}">Editar</button>
+                            button class="editar-button" data-key="${key}">Excluir</button>
                             <button class="delete-button" data-key="${key}">Excluir</button>
                         </td>
                     `;
