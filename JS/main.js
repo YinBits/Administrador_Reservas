@@ -23,25 +23,36 @@ const cardapioRef = ref(db, "Cardapio");
 
 // Função para editar um item
 function editItem(cardapioKey) {
-   // Obtenha os dados do item com base na chave
-   const item = cardapioData[cardapioKey];
+    // Obtenha a referência do nó do item a ser editado
+    const itemRef = ref(db, `Cardapio/${cardapioKey}`);
+    
+    // Obtenha os dados do item com base na chave
+    get(itemRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const item = snapshot.val();
 
-   // Preencha os campos do formulário com os dados existentes
-   document.getElementById("editCardapioKey").value = cardapioKey;
-   document.getElementById("editNome").value = item.nome;
-   document.getElementById("editCategoria").value = item.categoria;
-   document.getElementById("editDescricao").value = item.descricao;
-   document.getElementById("editPreco").value = item.preco;
+            // Preencha os campos do formulário com os dados existentes
+            document.getElementById("editCardapioKey").value = cardapioKey;
+            document.getElementById("editNome").value = item.nome;
+            document.getElementById("editCategoria").value = item.categoria;
+            document.getElementById("editDescricao").value = item.descricao;
+            document.getElementById("editPreco").value = item.preco;
 
-   // Preencha a imagem atual do item
-   const currentImage = document.getElementById("currentImage");
-   currentImage.src = item.imagem;
+            // Preencha a imagem atual do item
+            const currentImage = document.getElementById("currentImage");
+            currentImage.src = item.imagem;
 
-   // Limpe o campo de upload de imagem
-   document.getElementById("editImagem").value = "";
+            // Limpe o campo de upload de imagem
+            document.getElementById("editImagem").value = "";
 
-   // Abra o modal de edição
-   document.getElementById("editModal").style.display = "block";
+            // Abra o modal de edição
+            document.getElementById("editModal").style.display = "block";
+        } else {
+            console.error("Item não encontrado no banco de dados.");
+        }
+    }).catch((error) => {
+        console.error("Erro ao obter os dados do item: " + error);
+    });
 }
 
 // Função para deletar um item
