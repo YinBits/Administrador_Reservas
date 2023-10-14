@@ -4,14 +4,19 @@ require_once("../firebaseRDB.php");
 
 $db = new firebaseRDB($databaseURL);
 
-$insert = $db->insert("Cardápio",[
-    "Foto do Prato" => $_POST['image'],
-    "Nome" => $_POST['nome'],
-    "Categoria" => $_POST['categoria'],
-    "Descrição" => $_POST['descrição'],
-    "Preço" => $_POST['preço']
+$imageUrl = $_POST['image'];
+$nome = $_POST['nome'];
+$categoria = $_POST['categoria'];
+$descricao = $_POST['descrição'];
+$preco = $_POST['preço'];
+
+$insert = $db->insert("Cardápio", [
+    "Foto do Prato" => $imageUrl,
+    "Nome" => $nome,
+    "Categoria" => $categoria,
+    "Descrição" => $descricao,
+    "Preço" => $preco
 ]);
 
 echo "Prato adicionado com sucesso";
-
 ?>

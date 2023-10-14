@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/tables.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <style>
+        .thumbnail {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+
+    <!-- Import e Configuração do Firebase -->
+    <script type="module" src="../JS/main.js"></script>
+</head>
+
+<body>
+    
+    <header>
+        <nav>
+            <div class="navbar">
+                <div class="container nav-container">
+                    <input class="checkbox" type="checkbox" name="" id="" />
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                    <div class="logo">
+                        <img src="../IMG/Logo_Tina.png" class="logoimg">
+                    </div>
+                    <div class="menu-items">
+                        <img src="../IMG/Logo_Tina.png" id="logoimg-menu" alt="">
+                        <li><a href="index.php">Início</a></li>
+                        <li><a href="Reserva.php">Reserva de Mesas</a></li>
+                        <li><a href="cardapio.php">Cardápio</a></li>
+                        <li><a href="eventos.php">Eventos</a></li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="boxed">
+        <div class="container-fluid">
+            <h1 class="titulo">Sistema de Cardápio</h1>
+            <br>
+            <p><a href="add-cardapio.html" class="btn btn-light">Adicionar Cardápio</a></p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Foto do Prato</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="cardapioTableBody"></tbody>
+        </table>
+    </div>
+
+    
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cadastro de Pratos</title>
+</head>
+
+<body>
+    <h1>Sistema de Cardápio</h1>
+    <h2>Cadastro de Prato</h2>
+    <form action="add-action-cardapio.php">
+        <label for="image">Foto do Prato</label> <br>
+        <input type="file" accept="image/*" id="imageFile"><br>
+
+        <label for="nome">Nome</label><br>
+        <input type="text" name="nome" id="nome"><br>
+
+        <label for="categoria">Categoria</label><br>
+        <input type="text" name="categoria" id="categoria"><br>
+
+        <label for="descricao">Descrição</label><br>
+        <input type="text" name="descricao" id="descricao"><br>
+
+        <label for="preco">Preço</label><br>
+        <input type="text" name="preco" id="preco"><br>
+
+        <input type="button" value="Cadastrar" id="cadastrarButton">
+    </form>
+
+    <!-- Import e Configuração do Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
+        import { getDatabase, set, ref as rtdbRef, push } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyABfDBGL-M3oDLg6JGH79OksO45LdErczM",
+            authDomain: "tinareactnativefirebase.firebaseapp.com",
+            databaseURL: "https://tinareactnativefirebase-default-rtdb.firebaseio.com",
+            projectId: "tinareactnativefirebase",
+            storageBucket: "tinareactnativefirebase.appspot.com",
+            messagingSenderId: "285805953156",
+            appId: "1:285805953156:web:5451de5f8f99779571c2d1",
+            measurementId: "G-1K94YJ5G55"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const db = getDatabase(app);
+
+        document.getElementById("cadastrarButton").addEventListener("click", async () => {
+            await UploadImageAndData();
+        });
+
+        async function UploadImageAndData() {
+            try {
+                const imageFile = document.getElementById("imageFile").files[0];
+                const nomeValue = document.getElementById("nome").value;
+                const categoriaValue = document.getElementById("categoria").value;
+                const descricaoValue = document.getElementById("descricao").value;
+                const precoValue = document.getElementById("preco").value;
+
+                if (!imageFile) {
+                    alert("Selecione uma imagem.");
+                    return;
+                }
+
+                const storageRef = ref(storage, 'ImagensCardapio/' + imageFile.name);
+
+                await uploadBytes(storageRef, imageFile);
+                const imageUrl = await getDownloadURL(storageRef);
+
+                const dataRef = rtdbRef(db, "Cardapio");
+
+                // Use a função push para criar uma nova entrada com uma chave única
+                const newCardapioRef = push(dataRef);
+
+                const newData = {
+                    nome: nomeValue,
+                    categoria: categoriaValue,
+                    descricao: descricaoValue,
+                    preco: precoValue,
+                    imagem: imageUrl
+                };
+
+                // Defina os dados no nó recém-criado
+                set(newCardapioRef, newData);
+                alert("Dados e imagem inseridos com sucesso no Firebase Realtime Database!");
+
+            } catch (error) {
+                console.error("Erro no upload da imagem ou na inserção de dados: " + error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
