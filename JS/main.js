@@ -18,6 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+// Variável para armazenar os dados do cardápio
+let cardapioData = {};  // Inicialize como um objeto vazio
+
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
@@ -60,19 +63,18 @@ function deleteItem(cardapioKey) {
     const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
     remove(cardapioRef).then(() => {
         alert("Item deletado com sucesso!");
-        // Recarregue os dados após a exclusão (você pode criar uma função separada para isso)
+        // Recarregue os dados após a exclusão
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
     });
 }
 
-
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
     get(cardapioRef).then((snapshot) => {
         if (snapshot.exists()) {
-            const cardapioData = snapshot.val();
+            cardapioData = snapshot.val();  // Atribua os dados à variável cardapioData
             const cardapioTableBody = document.getElementById("cardapioTableBody");
             cardapioTableBody.innerHTML = ""; // Limpar o conteúdo atual da tabela
 
