@@ -110,7 +110,6 @@ function deleteItem(cardapioKey) {
     const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
     remove(cardapioRef).then(() => {
         alert("Item deletado com sucesso!");
-        closeEditModal(); // Fecha o modal após a exclusão
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
@@ -125,6 +124,7 @@ document.querySelectorAll(".delete-button").forEach((button) => {
             deleteItem(cardapioKey);
         }
     });
+    console.error("Foi ");
 });
 
 // Função para fechar o modal de edição
