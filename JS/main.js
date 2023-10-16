@@ -108,19 +108,20 @@ function editItem(cardapioKey) {
 // Função para deletar um item
 function deleteItem(cardapioKey) {
     const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
-    remove(cardapioRef).then(() => {
-        alert("Item deletado com sucesso!");
-        loadCardapioData();
-    }).catch((error) => {
-        console.error("Erro ao deletar o item: " + error);
-    });
+    remove(cardapioRef)
+        .then(() => {
+            alert("Item deletado com sucesso!");
+            // Recarregue os dados após a exclusão
+            loadCardapioData();
+        })
+        .catch((error) => {
+            console.error("Erro ao deletar o item: " + error);
+        });
 }
 
 // Adicione um ouvinte de evento aos botões de exclusão
 document.querySelectorAll(".delete-button").forEach((button) => {
-    console.log("Associando evento de clique ao botão de exclusão");
     button.addEventListener("click", (event) => {
-        console.log("Botão de exclusão clicado!");
         const cardapioKey = event.target.getAttribute("data-key");
         if (cardapioKey) {
             deleteItem(cardapioKey);
