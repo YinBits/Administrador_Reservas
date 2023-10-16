@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cadastro de Eventos</title>
+</head>
+
+<body>
+    <h1>Sistema de Eventos</h1>
+    <h2>Cadastro de Evento</h2>
+    <form>
+        <label for="nomeEvento">Nome do Evento</label><br>
+        <input type="text" name="nomeEvento" id="nomeEvento"><br>
+
+        <label for="dataEvento">Data do Evento</label><br>
+        <input type="date" name="dataEvento" id="dataEvento"><br>
+
+        <label for="descricaoEvento">Descrição do Evento</label><br>
+        <textarea name="descricaoEvento" id="descricaoEvento"></textarea><br>
+
+        <input type="button" value="Cadastrar Evento" id="cadastrarEventoButton">
+    </form>
+
+    <!-- Import and Configure Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyABfDBGL-M3oDLg6JGH79OksO45LdErczM",
+            authDomain: "tinareactnativefirebase.firebaseapp.com",
+            databaseURL: "https://tinareactnativefirebase-default-rtdb.firebaseio.com",
+            projectId: "tinareactnativefirebase",
+            storageBucket: "tinareactnativefirebase.appspot.com",
+            messagingSenderId: "285805953156",
+            appId: "1:285805953156:web:5451de5f8f99779571c2d1",
+            measurementId: "G-1K94YJ5G55"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById("cadastrarEventoButton").addEventListener("click", async () => {
+            await RegisterEvent();
+        });
+
+        async function RegisterEvent() {
+            try {
+                const nomeEventoValue = document.getElementById("nomeEvento").value;
+                const dataEventoValue = document.getElementById("dataEvento").value;
+                const descricaoEventoValue = document.getElementById("descricaoEvento").value;
+
+                if (!nomeEventoValue || !dataEventoValue || !descricaoEventoValue) {
+                    alert("Preencha todos os campos.");
+                    return;
+                }
+
+                const dataRef = ref(db, "Eventos");
+
+                // Use the push function to create a new entry with a unique key
+                const newEventoRef = push(dataRef);
+
+                const newData = {
+                    nomeEvento: nomeEventoValue,
+                    dataEvento: dataEventoValue,
+                    descricaoEvento: descricaoEventoValue
+                };
+
+                // Set the data in the newly created node
+                set(newEventoRef, newData);
+                alert("Evento cadastrado com sucesso no Firebase Realtime Database!");
+
+            } catch (error) {
+                console.error("Erro na inserção dos dados: " + error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
