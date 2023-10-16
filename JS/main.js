@@ -97,8 +97,9 @@ function editItem(cardapioKey) {
                                 console.error("Erro ao editar o item: " + error);
                             });
                     }
-                    closeEditModal();
+                    
                 });
+                closeEditModal();
             }
         })
         .catch((error) => {
