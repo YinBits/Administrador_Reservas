@@ -113,9 +113,7 @@ function loadCardapioData() {
                         <td>${item.preco}</td>
                         <td>
                         <button class="edit-button" data-key="${key}">Editar</button>
-                        </td>
-                        <td>
-                            <button class="delete-button" data-key="${key}">Excluir</button>
+                        <button class="delete-button" data-key="${key}">Excluir</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
