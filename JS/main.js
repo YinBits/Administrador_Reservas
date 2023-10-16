@@ -119,16 +119,7 @@ function deleteItem(cardapioKey) {
         });
 }
 
-document.querySelectorAll(".delete-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        console.log("Delete button clicked");
-        const cardapioKey = event.target.getAttribute("data-key");
-        console.log("Item key to delete: ", cardapioKey);
-        if (cardapioKey) {
-            deleteItem(cardapioKey);
-        }
-    });
-});
+
 
 
 
@@ -157,13 +148,25 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                   
+                            <button class="edit-button" data-key="${key}">Editar</button>
                             <button class="delete-button" data-key="${key}">Excluir</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
                 }
             }
+                // Adicione um ouvinte de evento aos botões de Exclusão
+            document.querySelectorAll(".delete-button").forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    console.log("Delete button clicked");
+                    const cardapioKey = event.target.getAttribute("data-key");
+                    console.log("Item key to delete: ", cardapioKey);
+                    if (cardapioKey) {
+                        deleteItem(cardapioKey);
+                    }
+                });
+            });
+
 
             // Adicione um ouvinte de evento aos botões de edição
             document.querySelectorAll(".edit-button").forEach((button) => {
