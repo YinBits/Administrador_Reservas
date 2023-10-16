@@ -125,7 +125,6 @@ function deleteItem(cardapioKey) {
 document.querySelectorAll(".delete-button").forEach((button) => {
     button.addEventListener("click", (event) => {
         const cardapioKey = event.target.getAttribute("data-key");
-        console.log("Botão de exclusão clicado para cardapioKey:", cardapioKey);
         if (cardapioKey) {
             deleteItem(cardapioKey);
         }
@@ -138,8 +137,8 @@ function closeEditModal() {
     editModal.style.display = "none";
 
     document.getElementById("cancelEditButton").addEventListener("click", () => {
-        closeEditModal();
-    });
+    closeEditModal();
+});
 
 }
 
