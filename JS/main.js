@@ -60,21 +60,20 @@ function editItem(cardapioKey) {
                     // Verifica se um novo arquivo de imagem foi selecionado
                     if (editItemImageFileInput.files.length > 0) {
                         const imageFile = editItemImageFileInput.files[0];
-                        const imageStorageRef = storageRef(storage, "ImagensCardapio/" + cardapioKey + "/" + imageFile.name);
-                        const uploadTask = uploadBytes(imageStorageRef, imageFile);
+
+                        // Upload a nova imagem
+                        const uploadTask = uploadBytes(storageRef(storage, "ImagensCardapio/" + cardapioKey + "/" + imageFile.name), imageFile);
 
                         uploadTask.then((snapshot) => {
                             // Imagem foi carregada com sucesso
-                            getDownloadURL(imageStorageRef).then((downloadURL) => {
+                            getDownloadURL(snapshot.ref).then((downloadURL) => {
                                 editedData.imagem = downloadURL;
 
-                                // Atualize os dados no banco de dados
+                                // Resto do código de edição
                                 set(cardapioItemRef, editedData)
                                     .then(() => {
                                         alert("Item editado com sucesso!");
-                                        // Feche o modal de edição
                                         closeEditModal();
-                                        // Recarregue os dados após a edição
                                         loadCardapioData();
                                     })
                                     .catch((error) => {
@@ -85,16 +84,14 @@ function editItem(cardapioKey) {
                             console.error("Erro ao fazer upload da imagem: " + error);
                         });
                     } else {
-                        // Caso não haja uma nova imagem, atualize os outros dados diretamente
+                        // Se nenhum novo arquivo de imagem for selecionado, atualize os outros dados diretamente
                         editedData.imagem = itemData.imagem;
 
-                        // Atualize os dados no banco de dados
+                        // Resto do código de edição
                         set(cardapioItemRef, editedData)
                             .then(() => {
                                 alert("Item editado com sucesso!");
-                                // Feche o modal de edição
                                 closeEditModal();
-                                // Recarregue os dados após a edição
                                 loadCardapioData();
                             })
                             .catch((error) => {
