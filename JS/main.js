@@ -77,8 +77,7 @@ function editItem(cardapioKey) {
 
 document.querySelectorAll(".edit-button").forEach((button) => {
     button.addEventListener("click", (event) => {
-
-        editModal()
+        
         const cardapioKey = event.target.getAttribute("data-key");
         if (cardapioKey) {
             // Chame a função editItem para abrir o modal de edição

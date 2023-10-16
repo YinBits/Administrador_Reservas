@@ -177,3 +177,7 @@ body {
   display: none;
 }
 
+.modal {
+  display: none;
+  /* Adicione estilos de posicionamento, cor de fundo, etc. */
+}
