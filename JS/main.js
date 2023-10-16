@@ -101,6 +101,10 @@ document.querySelectorAll(".edit-button").forEach((button) => {
         if (cardapioKey) {
             // Chame a função editItem para abrir o modal de edição
             editItem(cardapioKey);
+
+            // Abra o modal
+            const editModal = document.getElementById("editModal");
+            editModal.style.display = "block";
         }
     });
 });
