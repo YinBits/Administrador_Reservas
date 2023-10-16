@@ -90,18 +90,14 @@ function editItem(cardapioKey) {
                         set(cardapioItemRef, editedData)
                             .then(() => {
                                 alert("Item editado com sucesso!");
-                                
-                                function closeEditModal() {
-                                    const editModal = document.getElementById("editModal");
-                                    editModal.style.display = "none";
-                                }
-                                closeEditModal()
+                                closeEditModal();
                                 loadCardapioData();
                             })
                             .catch((error) => {
                                 console.error("Erro ao editar o item: " + error);
                             });
                     }
+                    closeEditModal();
                 });
             }
         })
@@ -125,11 +121,11 @@ function deleteItem(cardapioKey) {
 }
 
 
-
-
-
-// Função para fechar o modal de edição
-
+function closeEditModal() {
+    console.log("Close modal function called");
+    const editModal = document.getElementById("editModal");
+    editModal.style.display = "none";
+}
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
