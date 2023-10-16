@@ -47,21 +47,46 @@ function editItem(cardapioKey) {
                         categoria: document.getElementById("editItemCategory").value,
                         descricao: document.getElementById("editItemDescription").value,
                         preco: parseFloat(document.getElementById("editItemPrice").value),
-                        imagem: "Nova URL da imagem" // Atualize a URL da imagem aqui
                     };
 
-                    // Atualize os dados no banco de dados
-                    set(cardapioItemRef, editedData)
-                        .then(() => {
-                            alert("Item editado com sucesso!");
-                            // Feche o modal de edição
-                            editModal.style.display = "none";
-                            // Recarregue os dados após a edição
-                            loadCardapioData();
-                        })
-                        .catch((error) => {
-                            console.error("Erro ao editar o item: " + error);
-                        });
+                    // Atualize a imagem se o usuário selecionou uma nova imagem
+                    const editItemImageInput = document.getElementById("editItemImage");
+                    if (editItemImageInput.files.length > 0) {
+                        const file = editItemImageInput.files[0];
+                        const storageRef = ref(storage, 'seu-storage-bucket/' + file.name);
+                        uploadBytes(storageRef, file)
+                            .then((snapshot) => {
+                                getDownloadURL(storageRef)
+                                    .then((url) => {
+                                        editedData.imagem = url; // Atualize a URL da imagem
+                                        updateData();
+                                    })
+                                    .catch((error) => {
+                                        console.error("Erro ao obter a URL da imagem: " + error);
+                                    });
+                            })
+                            .catch((error) => {
+                                console.error("Erro ao fazer o upload da imagem: " + error);
+                            });
+                    } else {
+                        updateData();
+                    }
+
+                    // Função para atualizar os dados no banco de dados
+                    function updateData() {
+                        // Atualize os dados no banco de dados
+                        set(cardapioItemRef, editedData)
+                            .then(() => {
+                                alert("Item editado com sucesso!");
+                                // Feche o modal de edição
+                                editModal.style.display = "none";
+                                // Recarregue os dados após a edição
+                                loadCardapioData();
+                            })
+                            .catch((error) => {
+                                console.error("Erro ao editar o item: " + error);
+                            });
+                    }
                 });
             }
         })
@@ -69,6 +94,17 @@ function editItem(cardapioKey) {
             console.error("Erro ao obter os dados para edição: " + error);
         });
 }
+
+document.querySelectorAll(".edit-button").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        const cardapioKey = event.target.getAttribute("data-key");
+        if (cardapioKey) {
+            // Chame a função editItem para abrir o modal de edição
+            editItem(cardapioKey);
+        }
+    });
+});
+
 
 // Função para deletar um item
 function deleteItem(cardapioKey) {
