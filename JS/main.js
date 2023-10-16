@@ -132,7 +132,7 @@ function closeEditModal() {
 //Ouvinte button
 document.querySelectorAll(".cancelEditButton").forEach((button) => {
     button.addEventListener("click", (event) => {
-        closeEditModal()
+        
     });
 });
 
