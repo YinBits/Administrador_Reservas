@@ -22,8 +22,7 @@ const db = getDatabase(app);
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
-const storage = firebase.storage(); // Obtenha uma referência ao Firebase Storage
-const storageRef = storage.ref("ImagensCardapio/" + cardapioKey + "/" + imageFile.name);
+
 // Função para abrir o modal de edição
 function openEditModal() {
     const editModal = document.getElementById("editModal");
