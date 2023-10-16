@@ -58,7 +58,7 @@ function editItem(cardapioKey) {
                     // Verifica se um novo arquivo de imagem foi selecionado
                     if (editItemImageFileInput.files.length > 0) {
                         const imageFile = editItemImageFileInput.files[0];
-                        const storageRef = storageRef(storage, "ImagensCardapio/" + cardapioKey + "/" + imageFile.name);
+                        const storageRef = ref(storage, "ImagensCardapio/" + cardapioKey + "/" + imageFile.name);
                         const uploadTask = uploadBytes(storageRef, imageFile);
 
                         uploadTask.then((snapshot) => {
