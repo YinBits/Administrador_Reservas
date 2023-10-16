@@ -42,7 +42,7 @@ function editItem(cardapioKey) {
                     // Verifica se um novo arquivo de imagem foi selecionado
                     if (editItemImageFileInput.files.length > 0) {
                         const imageFile = editItemImageFileInput.files[0];
-                        const storageRef = ref(firebase.storage().ref("images/" + cardapioKey + "/" + imageFile.name));
+                        const storageRef = ref(firebase.storage().ref("ImagensCardapio/" + cardapioKey + "/" + imageFile.name));
                         const uploadTask = uploadBytes(storageRef, imageFile);
 
                         uploadTask.then((snapshot) => {
