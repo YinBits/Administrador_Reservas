@@ -23,10 +23,6 @@ const cardapioRef = ref(db, "Cardapio");
 
 // Função para editar um item
 function editItem(cardapioKey) {
-    // Implemente a função de edição aqui
-    // Você pode usar um modal semelhante ao código anterior
-
-    // Recupere os dados atuais do item que você deseja editar
     const cardapioItemRef = ref(db, "Cardapio/" + cardapioKey);
 
     get(cardapioItemRef)
@@ -34,16 +30,18 @@ function editItem(cardapioKey) {
             if (snapshot.exists()) {
                 const itemData = snapshot.val();
 
-                // Agora você pode abrir um modal ou um formulário para editar os dados, incluindo a imagem.
-
-                // Exemplo de como atualizar os campos de edição após abrir o modal:
+                // Preencha o modal de edição com os dados atuais do item
                 document.getElementById("editItemName").value = itemData.nome;
                 document.getElementById("editItemCategory").value = itemData.categoria;
                 document.getElementById("editItemDescription").value = itemData.descricao;
                 document.getElementById("editItemPrice").value = itemData.preco;
 
+                // Abra o modal de edição
+                const editModal = document.getElementById("editModal");
+                editModal.style.display = "block";
+
                 // Adicione um evento ao botão de confirmação de edição
-                document.querySelectorAll(".edit-button").addEventListener("click", () => {
+                document.getElementById("saveEditButton").addEventListener("click", () => {
                     const editedData = {
                         nome: document.getElementById("editItemName").value,
                         categoria: document.getElementById("editItemCategory").value,
@@ -56,7 +54,8 @@ function editItem(cardapioKey) {
                     set(cardapioItemRef, editedData)
                         .then(() => {
                             alert("Item editado com sucesso!");
-                            // Feche o modal ou formulário de edição aqui
+                            // Feche o modal de edição
+                            editModal.style.display = "none";
                             // Recarregue os dados após a edição
                             loadCardapioData();
                         })
