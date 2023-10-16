@@ -59,12 +59,12 @@ function editItem(cardapioKey) {
                     // Verifica se um novo arquivo de imagem foi selecionado
                     if (editItemImageFileInput.files.length > 0) {
                         const imageFile = editItemImageFileInput.files[0];
-                        const storageRef = ref(storage, "ImagensCardapio/" + cardapioKey + "/" + imageFile.name);
-                        const uploadTask = uploadBytes(storageRef, imageFile);
+                        const imageStorageRef = storageRef(storage, "ImagensCardapio/" + cardapioKey + "/" + imageFile.name);
+                        const uploadTask = uploadBytes(imageStorageRef, imageFile);
 
                         uploadTask.then((snapshot) => {
                             // Imagem foi carregada com sucesso
-                            getDownloadURL(storageRef).then((downloadURL) => {
+                            getDownloadURL(imageStorageRef).then((downloadURL) => {
                                 editedData.imagem = downloadURL;
 
                                 // Atualize os dados no banco de dados
