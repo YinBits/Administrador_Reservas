@@ -25,6 +25,50 @@ const cardapioRef = ref(db, "Cardapio");
 function editItem(cardapioKey) {
     // Implemente a função de edição aqui
     // Você pode usar um modal semelhante ao código anterior
+
+    // Recupere os dados atuais do item que você deseja editar
+    const cardapioItemRef = ref(db, "Cardapio/" + cardapioKey);
+
+    get(cardapioItemRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const itemData = snapshot.val();
+
+                // Agora você pode abrir um modal ou um formulário para editar os dados, incluindo a imagem.
+
+                // Exemplo de como atualizar os campos de edição após abrir o modal:
+                document.getElementById("editItemName").value = itemData.nome;
+                document.getElementById("editItemCategory").value = itemData.categoria;
+                document.getElementById("editItemDescription").value = itemData.descricao;
+                document.getElementById("editItemPrice").value = itemData.preco;
+
+                // Adicione um evento ao botão de confirmação de edição
+                document.querySelectorAll(".edit-button").addEventListener("click", () => {
+                    const editedData = {
+                        nome: document.getElementById("editItemName").value,
+                        categoria: document.getElementById("editItemCategory").value,
+                        descricao: document.getElementById("editItemDescription").value,
+                        preco: parseFloat(document.getElementById("editItemPrice").value),
+                        imagem: "Nova URL da imagem" // Atualize a URL da imagem aqui
+                    };
+
+                    // Atualize os dados no banco de dados
+                    set(cardapioItemRef, editedData)
+                        .then(() => {
+                            alert("Item editado com sucesso!");
+                            // Feche o modal ou formulário de edição aqui
+                            // Recarregue os dados após a edição
+                            loadCardapioData();
+                        })
+                        .catch((error) => {
+                            console.error("Erro ao editar o item: " + error);
+                        });
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Erro ao obter os dados para edição: " + error);
+        });
 }
 
 // Função para deletar um item
@@ -68,7 +112,8 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button class="delete-button" data-key="${key}">Excluir</button>
+                            <button class="delete-button" data-key="${key}">Editar</button>
+                            <button class="edit-button" data-key="${key}">Excluir</button>
                         </td>
                     `;
                     cardapioTableBody.appendChild(newRow);
