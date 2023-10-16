@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getDatabase, ref, get, remove, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { getDownloadURL, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 
 // Configuração do Firebase (substitua pelos seus próprios valores)
 const firebaseConfig = {
@@ -57,7 +58,7 @@ function editItem(cardapioKey) {
                     // Verifica se um novo arquivo de imagem foi selecionado
                     if (editItemImageFileInput.files.length > 0) {
                         const imageFile = editItemImageFileInput.files[0];
-                        const storageRef = ref(firebase.storage().ref("ImagensCardapio/" + imageFile.name));
+                        const storageRef = ref(firebase.storage().ref("ImagensCardapio/" + cardapioKey + "/" + imageFile.name));
                         const uploadTask = uploadBytes(storageRef, imageFile);
 
                         uploadTask.then((snapshot) => {
