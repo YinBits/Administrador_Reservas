@@ -23,6 +23,9 @@ const cardapioRef = ref(db, "Cardapio");
 
 // Função para editar um item
 function editItem(cardapioKey) {
+    console.log("Função editItem chamada com chave: " + cardapioKey);
+    
+    
     const cardapioItemRef = ref(db, "Cardapio/" + cardapioKey);
 
     get(cardapioItemRef)
