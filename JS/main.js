@@ -2,8 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getDatabase, ref, get, remove, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 
-
-
 // Configuração do Firebase (substitua pelos seus próprios valores)
 const firebaseConfig = {
     apiKey: "AIzaSyABfDBGL-M3oDLg6JGH79OksO45LdErczM",
@@ -19,8 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const db = getDatabase(app);
-
-
 
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
@@ -114,7 +110,7 @@ function deleteItem(cardapioKey) {
     const cardapioRef = ref(db, "Cardapio/" + cardapioKey);
     remove(cardapioRef).then(() => {
         alert("Item deletado com sucesso!");
-        // Recarregue os dados após a exclusão (você pode criar uma função separada para isso)
+        closeEditModal(); // Fecha o modal após a exclusão
         loadCardapioData();
     }).catch((error) => {
         console.error("Erro ao deletar o item: " + error);
@@ -135,11 +131,6 @@ document.querySelectorAll(".delete-button").forEach((button) => {
 function closeEditModal() {
     const editModal = document.getElementById("editModal");
     editModal.style.display = "none";
-
-    document.getElementById("cancelEditButton").addEventListener("click", () => {
-    closeEditModal();
-});
-
 }
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
