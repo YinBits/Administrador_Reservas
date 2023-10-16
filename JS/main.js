@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getDatabase, ref, get, remove, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 import { getDownloadURL, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 
+
 // Configuração do Firebase (substitua pelos seus próprios valores)
 const firebaseConfig = {
     apiKey: "AIzaSyABfDBGL-M3oDLg6JGH79OksO45LdErczM",
