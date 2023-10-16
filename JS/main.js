@@ -22,7 +22,6 @@ const db = getDatabase(app);
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
-// Função para abrir o modal de edição
 function openEditModal() {
     const editModal = document.getElementById("editModal");
     editModal.style.display = "block";
@@ -76,9 +75,14 @@ function editItem(cardapioKey) {
         });
 }
 
+// ... Seu código anterior ...
+
+// No final do código, após a função loadCardapioData():
+loadCardapioData();
+
+// Adicione um ouvinte de evento aos botões de edição (depois de carregar os dados)
 document.querySelectorAll(".edit-button").forEach((button) => {
     button.addEventListener("click", (event) => {
-        
         const cardapioKey = event.target.getAttribute("data-key");
         if (cardapioKey) {
             // Chame a função editItem para abrir o modal de edição
