@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    
+
     <header>
         <nav>
             <div class="navbar">
@@ -68,23 +68,21 @@
         </table>
     </div>
 
+    <!-- Modal de Edição -->
+    <!-- Modal de Edição -->
     <div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeEditModal()">&times;</span>
-        <h2>Editar Item</h2>
-        <input type="hidden" id="editCardapioKey">
-        <label for="editNome">Nome:</label>
-        <input type="text" id="editNome">
-        <label for="editCategoria">Categoria:</label>
-        <input type="text" id="editCategoria">
-        <label for="editDescricao">Descrição:</label>
-        <textarea id="editDescricao"></textarea>
-        <label for="editPreco">Preço:</label>
-        <input type="text" id="editPreco">
-        <button id="editSaveButton" onclick="saveChanges()">Salvar Alterações</button>
+        <div class="modal-content">
+            <h2>Editar Item</h2>
+            <input type="text" id="editName" placeholder="Nome">
+            <input type="text" id="editCategory" placeholder="Categoria">
+            <input type="text" id="editDescription" placeholder="Descrição">
+            <input type="number" id="editPrice" placeholder="Preço">
+            <input type="file" id="editImage" accept="image/*"> <!-- Campo de entrada de arquivo para a imagem -->
+            <button id="saveEditButton">Salvar</button>
+        </div>
     </div>
-</div>
-    
+
+
 </body>
 
 </html>
