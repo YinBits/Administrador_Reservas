@@ -118,14 +118,16 @@ function deleteItem(cardapioKey) {
 
 // Adicione um ouvinte de evento aos botões de exclusão
 document.querySelectorAll(".delete-button").forEach((button) => {
+    console.log("Associando evento de clique ao botão de exclusão");
     button.addEventListener("click", (event) => {
-        console.log("Botão de exclusão clicado!"); // Adicione esta linha
+        console.log("Botão de exclusão clicado!");
         const cardapioKey = event.target.getAttribute("data-key");
         if (cardapioKey) {
             deleteItem(cardapioKey);
         }
     });
 });
+
 
 // Função para fechar o modal de edição
 function closeEditModal() {
