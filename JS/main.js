@@ -1,27 +1,10 @@
-// Importar as funções necessárias do Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getDatabase, ref, get, remove, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
-
-
-// Configuração do Firebase (substitua pelos seus próprios valores)
-const firebaseConfig = {
-    apiKey: "AIzaSyABfDBGL-M3oDLg6JGH79OksO45LdErczM",
-    authDomain: "tinareactnativefirebase.firebaseapp.com",
-    databaseURL: "https://tinareactnativefirebase-default-rtdb.firebaseio.com",
-    projectId: "tinareactnativefirebase",
-    storageBucket: "tinareactnativefirebase.appspot.com",
-    messagingSenderId: "285805953156",
-    appId: "1:285805953156:web:5451de5f8f99779571c2d1",
-    measurementId: "G-1K94YJ5G55"
-};
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // Referência para o nó "Cardapio" no Realtime Database
 const cardapioRef = ref(db, "Cardapio");
 
+// Função para abrir o modal de edição
 function openEditModal() {
     const editModal = document.getElementById("editModal");
     editModal.style.display = "block";
@@ -30,6 +13,7 @@ function openEditModal() {
 // Função para editar um item
 function editItem(cardapioKey) {
     const cardapioItemRef = ref(db, "Cardapio/" + cardapioKey);
+    const editItemImageFileInput = document.getElementById("editItemImageFile");
 
     get(cardapioItemRef)
         .then((snapshot) => {
@@ -41,6 +25,7 @@ function editItem(cardapioKey) {
                 document.getElementById("editItemCategory").value = itemData.categoria;
                 document.getElementById("editItemDescription").value = itemData.descricao;
                 document.getElementById("editItemPrice").value = itemData.preco;
+                editItemImageFileInput.value = ''; // Limpa o input de arquivo
 
                 // Abra o modal de edição
                 openEditModal();
@@ -51,22 +36,53 @@ function editItem(cardapioKey) {
                         nome: document.getElementById("editItemName").value,
                         categoria: document.getElementById("editItemCategory").value,
                         descricao: document.getElementById("editItemDescription").value,
-                        preco: parseFloat(document.getElementById("editItemPrice").value),
-                        imagem: document.getElementById("editItemImage").value
+                        preco: parseFloat(document.getElementById("editItemPrice").value)
                     };
 
-                    // Atualize os dados no banco de dados
-                    set(cardapioItemRef, editedData)
-                        .then(() => {
-                            alert("Item editado com sucesso!");
-                            // Feche o modal de edição
-                            closeEditModal();
-                            // Recarregue os dados após a edição
-                            loadCardapioData();
-                        })
-                        .catch((error) => {
-                            console.error("Erro ao editar o item: " + error);
+                    // Verifica se um novo arquivo de imagem foi selecionado
+                    if (editItemImageFileInput.files.length > 0) {
+                        const imageFile = editItemImageFileInput.files[0];
+                        const storageRef = ref(firebase.storage().ref("images/" + cardapioKey + "/" + imageFile.name));
+                        const uploadTask = uploadBytes(storageRef, imageFile);
+
+                        uploadTask.then((snapshot) => {
+                            // Imagem foi carregada com sucesso
+                            getDownloadURL(storageRef).then((downloadURL) => {
+                                editedData.imagem = downloadURL;
+
+                                // Atualize os dados no banco de dados
+                                set(cardapioItemRef, editedData)
+                                    .then(() => {
+                                        alert("Item editado com sucesso!");
+                                        // Feche o modal de edição
+                                        closeEditModal();
+                                        // Recarregue os dados após a edição
+                                        loadCardapioData();
+                                    })
+                                    .catch((error) => {
+                                        console.error("Erro ao editar o item: " + error);
+                                    });
+                            });
+                        }).catch((error) => {
+                            console.error("Erro ao fazer upload da imagem: " + error);
                         });
+                    } else {
+                        // Caso não haja uma nova imagem, atualize os outros dados diretamente
+                        editedData.imagem = itemData.imagem;
+
+                        // Atualize os dados no banco de dados
+                        set(cardapioItemRef, editedData)
+                            .then(() => {
+                                alert("Item editado com sucesso!");
+                                // Feche o modal de edição
+                                closeEditModal();
+                                // Recarregue os dados após a edição
+                                loadCardapioData();
+                            })
+                            .catch((error) => {
+                                console.error("Erro ao editar o item: " + error);
+                            });
+                    }
                 });
             }
         })
@@ -74,22 +90,6 @@ function editItem(cardapioKey) {
             console.error("Erro ao obter os dados para edição: " + error);
         });
 }
-
-// ... Seu código anterior ...
-
-// No final do código, após a função loadCardapioData():
-loadCardapioData();
-
-// Adicione um ouvinte de evento aos botões de edição (depois de carregar os dados)
-document.querySelectorAll(".edit-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        const cardapioKey = event.target.getAttribute("data-key");
-        if (cardapioKey) {
-            // Chame a função editItem para abrir o modal de edição
-            editItem(cardapioKey);
-        }
-    });
-});
 
 // Função para deletar um item
 function deleteItem(cardapioKey) {
@@ -146,12 +146,12 @@ function loadCardapioData() {
                 }
             }
 
-            // Adicione um ouvinte de evento aos botões de exclusão
-            document.querySelectorAll(".delete-button").forEach((button) => {
+            // Adicione um ouvinte de evento aos botões de edição
+            document.querySelectorAll(".edit-button").forEach((button) => {
                 button.addEventListener("click", (event) => {
                     const cardapioKey = event.target.getAttribute("data-key");
                     if (cardapioKey) {
-                        deleteItem(cardapioKey);
+                        editItem(cardapioKey);
                     }
                 });
             });

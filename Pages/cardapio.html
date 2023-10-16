@@ -13,6 +13,23 @@
             max-width: 100px;
             max-height: 100px;
         }
+        #editModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        #editModal .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+        }
     </style>
 
     <!-- Import e Configuração do Firebase -->
@@ -69,19 +86,19 @@
     </div>
 
     <!-- Modal de Edição -->
-    <div id="editModal" class="modal">
+    <!-- Modal de Edição -->
+    <div id="editModal">
         <div class="modal-content">
-            <span class="close" id="closeEditModal">&times;</span>
             <h2>Editar Item</h2>
-            <input type="text" id="editItemName" placeholder="Nome">
-            <input type="text" id="editItemCategory" placeholder="Categoria">
-            <textarea id="editItemDescription" placeholder="Descrição"></textarea>
-            <input type="number" id="editItemPrice" placeholder="Preço">
-            <input type="file" id="editItemImage" accept="image/*">
+            <input type="text" id="editItemName" placeholder="Nome"><br>
+            <input type="text" id="editItemCategory" placeholder="Categoria"><br>
+            <input type="text" id="editItemDescription" placeholder="Descrição"><br>
+            <input type="number" id="editItemPrice" placeholder="Preço"><br>
+            <input type="file" id="editItemImageFile" accept="image/*">
             <button id="saveEditButton">Salvar</button>
+            <button id="cancelEditButton">Cancelar</button>
         </div>
     </div>
-
 
 
 
