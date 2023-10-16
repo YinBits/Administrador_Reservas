@@ -101,7 +101,9 @@ function editItem(cardapioKey) {
                 });
                 
             }
-         
+            document.querySelector(".cancelEditButton").addEventListener("click", () => {
+                closeEditModal();
+            });
         })
         .catch((error) => {
             console.error("Erro ao obter os dados para edição: " + error);
@@ -129,12 +131,8 @@ function closeEditModal() {
     editModal.style.display = "none";
 }
 
-//Ouvinte button
-document.querySelectorAll(".cancelEditButton").forEach((button) => {
-    button.addEventListener("click", (event) => {
-        
-    });
-});
+
+
 
 
 
