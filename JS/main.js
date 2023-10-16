@@ -129,6 +129,15 @@ function closeEditModal() {
     editModal.style.display = "none";
 }
 
+//Ouvinte button
+document.querySelectorAll(".cancelEditButton").forEach((button) => {
+    button.addEventListener("click", (event) => {
+        closeEditModal()
+    });
+});
+
+
+
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
     get(cardapioRef).then((snapshot) => {
