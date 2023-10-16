@@ -69,15 +69,15 @@
     </div>
 
     <!-- Modal de Edição -->
-    <!-- Modal de Edição -->
     <div id="editModal" class="modal">
         <div class="modal-content">
+            <span class="close" id="closeEditModal">&times;</span>
             <h2>Editar Item</h2>
-            <input type="text" id="editName" placeholder="Nome">
-            <input type="text" id="editCategory" placeholder="Categoria">
-            <input type="text" id="editDescription" placeholder="Descrição">
-            <input type="number" id="editPrice" placeholder="Preço">
-            <input type="file" id="editImage" accept="image/*"> <!-- Campo de entrada de arquivo para a imagem -->
+            <input type="text" id="editItemName" placeholder="Nome">
+            <input type="text" id="editItemCategory" placeholder="Categoria">
+            <textarea id="editItemDescription" placeholder="Descrição"></textarea>
+            <input type="number" id="editItemPrice" placeholder="Preço">
+            <input type="file" id="editItemImage" accept="image/*">
             <button id="saveEditButton">Salvar</button>
         </div>
     </div>
