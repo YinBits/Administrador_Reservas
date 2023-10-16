@@ -157,7 +157,7 @@ function loadCardapioData() {
                         <td>${item.descricao}</td>
                         <td>${item.preco}</td>
                         <td>
-                            <button class="edit-button" data-key="${key}">Editar</button>
+                   
                             <button class="delete-button" data-key="${key}">Excluir</button>
                         </td>
                     `;
