@@ -125,6 +125,7 @@ function deleteItem(cardapioKey) {
 document.querySelectorAll(".delete-button").forEach((button) => {
     button.addEventListener("click", (event) => {
         const cardapioKey = event.target.getAttribute("data-key");
+        console.log("Botão de exclusão clicado para cardapioKey:", cardapioKey);
         if (cardapioKey) {
             deleteItem(cardapioKey);
         }
@@ -135,6 +136,11 @@ document.querySelectorAll(".delete-button").forEach((button) => {
 function closeEditModal() {
     const editModal = document.getElementById("editModal");
     editModal.style.display = "none";
+
+    document.getElementById("cancelEditButton").addEventListener("click", () => {
+        closeEditModal();
+    });
+
 }
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
