@@ -90,7 +90,12 @@ function editItem(cardapioKey) {
                         set(cardapioItemRef, editedData)
                             .then(() => {
                                 alert("Item editado com sucesso!");
-                                closeEditModal();
+                                
+                                function closeEditModal() {
+                                    const editModal = document.getElementById("editModal");
+                                    editModal.style.display = "none";
+                                }
+                                closeEditModal()
                                 loadCardapioData();
                             })
                             .catch((error) => {
@@ -124,10 +129,7 @@ function deleteItem(cardapioKey) {
 
 
 // Função para fechar o modal de edição
-function closeEditModal() {
-    const editModal = document.getElementById("editModal");
-    editModal.style.display = "none";
-}
+
 
 // Função para carregar os dados do Firebase e exibi-los na tabela
 function loadCardapioData() {
