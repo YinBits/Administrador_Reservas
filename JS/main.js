@@ -99,8 +99,9 @@ function editItem(cardapioKey) {
                     }
                     
                 });
-                closeEditModal();
+                
             }
+            closeEditModal();
         })
         .catch((error) => {
             console.error("Erro ao obter os dados para edição: " + error);
