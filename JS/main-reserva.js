@@ -30,8 +30,8 @@ function openEditModal() {
     editModal.style.display = "block";
 }
 
-function editReserva(nomeCliente) {
-    const reservaItemRef = ref(db, "Reservas/" + nomeCliente);
+function editReserva(key) {
+    const reservaItemRef = ref(db, "Reservas/" + key);
 
     get(reservaItemRef)
         .then((snapshot) => {
@@ -76,8 +76,8 @@ function editReserva(nomeCliente) {
         });
 }
 
-function deleteReserva(nomeCliente) {
-    const reservaRef = ref(db, "Reservas/" + nomeCliente);
+function deleteReserva(key) {
+    const reservaRef = ref(db, "Reservas/" + key);
     remove(reservaRef)
         .then(() => {
             alert("Reserva deletada com sucesso!");
@@ -127,18 +127,20 @@ function loadReservasData() {
 
                 document.querySelectorAll(".delete-button").forEach((button) => {
                     button.addEventListener("click", (event) => {
-                        const reservaKey = event.target.getAttribute("data-key");
-                        if (reservaKey) {
-                            deleteReserva(reservaKey);
+                        const key = event.target.getAttribute("data-key");
+                        if (key) {
+                            if (confirm("Tem certeza de que deseja excluir esta reserva?")) {
+                                deleteReserva(key);
+                            }
                         }
                     });
                 });
 
                 document.querySelectorAll(".edit-button").forEach((button) => {
                     button.addEventListener("click", (event) => {
-                        const reservaKey = event.target.getAttribute("data-key");
-                        if (reservaKey) {
-                            editReserva(reservaKey);
+                        const key = event.target.getAttribute("data-key");
+                        if (key) {
+                            editReserva(key);
                         }
                     });
                 });
@@ -150,4 +152,3 @@ function loadReservasData() {
 }
 
 loadReservasData();
-
