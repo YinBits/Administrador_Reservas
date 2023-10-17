@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../CSS/Login.css"">
+    <link rel="stylesheet" href="../CSS/Login.css">
 </head>
 <body>
 
@@ -12,24 +12,48 @@
 
     <div class="login-box">
         <h2>Login</h2>
-        <form action="index.html" method="post">
+        <form id="loginForm">
           <div class="user-box">
-            <input type="text" name="user" id="password" required="">
+            <input type="text" name="user" id="email" required="">
             <label>Usuário</label>
           </div>
           <div class="user-box">
             <input type="password" name="password" id="password" required="">
             <label>Senha</label>
           </div>
-          <a href="index.html">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Acessar
-          </a>
+          <button type="submit" id="loginButton">Acessar</button>
         </form>
       </div>
-    
+
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_DOMÍNIO.firebaseapp.com",
+            projectId: "SEU_PROJECT_ID",
+            storageBucket: "SEU_BUCKET",
+            messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+            appId: "SEU_APP_ID",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        const loginForm = document.getElementById("loginForm");
+        const loginButton = document.getElementById("loginButton");
+
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (email === "admin@bardotina.com.br" && password === "123456") {
+                // Autenticação bem-sucedida
+                window.location.href = "inicio.html"; // Redireciona para a página "Início"
+            } else {
+                alert("Credenciais incorretas. Tente novamente.");
+            }
+        });
+    </script>
 </body>
 </html>
