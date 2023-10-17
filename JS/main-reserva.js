@@ -94,7 +94,7 @@ function closeEditModal() {
 }
 
 function loadReservasData() {
-    const today = new Date(); // Obtém a data de hoje
+    const today = new Date();
     get(reservasRef).then((snapshot) => {
         if (snapshot.exists()) {
             const reservasData = snapshot.val();
@@ -105,8 +105,7 @@ function loadReservasData() {
                 if (reservasData.hasOwnProperty(key)) {
                     const reserva = reservasData[key];
                     const dataReserva = new Date(reserva.dataReserva);
-                    
-                    // Verifica se a reserva é para hoje ou dias futuros
+
                     if (dataReserva >= today) {
                         const newRow = document.createElement("tr");
                         newRow.innerHTML = `
@@ -147,5 +146,6 @@ function loadReservasData() {
         console.error("Erro ao obter os dados: " + error);
     });
 }
+
 
 loadReservasData();
