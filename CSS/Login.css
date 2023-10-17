@@ -90,6 +90,7 @@ img {
     margin-top: 40px;
     letter-spacing: 4px;
     cursor: pointer;
+    background-color: transparent;
 }
 
 #loginButton:hover {
