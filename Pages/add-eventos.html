@@ -70,6 +70,7 @@
                 // Set the data in the newly created node
                 set(newEventoRef, newData);
                 alert("Evento cadastrado com sucesso no Firebase Realtime Database!");
+                window.location.replace("./eventos.html");
 
             } catch (error) {
                 console.error("Erro na inserção dos dados: " + error.message);
