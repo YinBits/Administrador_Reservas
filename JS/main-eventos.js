@@ -67,11 +67,14 @@ function editEvento(eventoKey) {
                     closeEditModal();
                 });
             }
+            document.querySelector(".cancelEditButton").addEventListener("click", () => {
+                closeEditModal();
         })
         .catch((error) => {
             console.error("Erro ao obter os dados para edição: " + error);
         });
-}
+    }
+)};
 
 // Função para excluir um evento
 function deleteEvento(eventoKey) {
