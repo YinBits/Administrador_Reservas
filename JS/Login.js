@@ -1,3 +1,5 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
 // Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyABfDBGL-M3oDLg6JGH79OksO45LdErczM",
@@ -11,7 +13,8 @@ const firebaseConfig = {
   };
   
   // Inicialize o Firebase
-  firebase.initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
   
   // Adicione um ouvinte de evento para o formulário de login
   document.getElementById("loginForm").addEventListener("submit", function (e) {
