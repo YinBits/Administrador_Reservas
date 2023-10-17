@@ -98,7 +98,7 @@ function loadEventosData() {
     get(eventosRef).then((snapshot) => {
         if (snapshot.exists()) {
             const eventosData = snapshot.val();
-            const eventosTableBody = document.getElementById("eventosTableBody");
+            const eventosTableBody = document.getElementById("EventosTableBody");
             eventosTableBody.innerHTML = ""; // Limpar o conteúdo atual da tabela
 
             for (const key in eventosData) {
