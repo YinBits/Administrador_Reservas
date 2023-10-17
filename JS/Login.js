@@ -19,18 +19,14 @@ const firebaseConfig = {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
   
-    // Verifique as credenciais no Firebase Realtime Database
-    const usersRef = firebase.database().ref("users");
-    usersRef.once("value", (snapshot) => {
-      const users = snapshot.val();
-      const foundUser = users.find((user) => user.email === email && user.password === password);
-  
-      if (foundUser) {
+    // Autenticação com Firebase
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
         // Autenticação bem-sucedida
         window.location.href = "./inicio.html"; // Redireciona para a página "Início"
-      } else {
+      })
+      .catch((error) => {
         alert("Credenciais incorretas. Tente novamente.");
-      }
-    });
+      });
   });
   
