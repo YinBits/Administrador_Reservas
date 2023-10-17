@@ -75,7 +75,7 @@ function editEvento(eventoKey) {
 
 // Função para excluir um evento
 function deleteEvento(eventoKey) {
-    const eventosRef = ref(db, "Eventos/" + eventoKeyKey);
+    const eventosRef = ref(db, "Eventos/" + eventoKey);
     remove(eventosRef)
         .then(() => {eventosRef
             alert("Item deletado com sucesso!");
