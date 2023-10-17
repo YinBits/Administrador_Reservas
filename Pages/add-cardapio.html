@@ -85,13 +85,14 @@
                 };
 
                 // Defina os dados no nó recém-criado
-                set(newCardapioRef, newData);
+                set(newCardapioRef, newData).then(()=>{
                 alert("Dados e imagem inseridos com sucesso no Firebase Realtime Database!");
-                
+                window.location.replace("./cardapio.html");
+                });
             } catch (error) {
                 console.error("Erro no upload da imagem ou na inserção de dados: " + error.message);
             }
-            window.location.replace("./cardapio.html");
+            
         }
     </script>
 </body>
