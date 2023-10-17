@@ -93,6 +93,14 @@ function closeEditModal() {
     editModal.style.display = "none";
 }
 
+function formatDate(date) {
+    const d = new Date(date);
+    const day = d.getDate().toString().padStart(2, '0');
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
 // Função para carregar os dados de eventos e preencher a tabela
 function loadEventosData() {
     get(eventosRef).then((snapshot) => {
@@ -107,7 +115,7 @@ function loadEventosData() {
                     const newRow = document.createElement("tr");
                     newRow.innerHTML = `
                         <td>${evento.nome}</td>
-                        <td>${evento.data}</td>
+                        <td>${formatDate(evento.data)}</td>
                         <td>${evento.descricao}</td>
                         <td>
                             <button class="edit-button" data-key="${key}">Editar</button>
