@@ -106,8 +106,8 @@ function loadEventosData() {
                     const evento = eventosData[key];
                     const newRow = document.createElement("tr");
                     newRow.innerHTML = `
-                        <td>${evento.data}</td>
                         <td>${evento.nome}</td>
+                        <td>${evento.data}</td>
                         <td>${evento.descrição}</td>
                         <td>
                             <button class="edit-button" data-key="${key}">Editar</button>
