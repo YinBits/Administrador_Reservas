@@ -108,7 +108,7 @@ function loadEventosData() {
                     newRow.innerHTML = `
                         <td>${evento.nome}</td>
                         <td>${evento.data}</td>
-                        <td>${evento.descrição}</td>
+                        <td>${evento.descricao}</td>
                         <td>
                             <button class="edit-button" data-key="${key}">Editar</button>
                             <button class="delete-button" data-key="${key}">Excluir</button>
