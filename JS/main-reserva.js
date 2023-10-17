@@ -95,57 +95,60 @@ function closeEditModal() {
 
 function loadReservasData() {
     const today = new Date();
-    get(reservasRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            const reservasData = snapshot.val();
-            const reservasTableBody = document.getElementById("ReservasTableBody");
-            reservasTableBody.innerHTML = "";
+    get(reservasRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const reservasData = snapshot.val();
+                const reservasTableBody = document.getElementById("ReservasTableBody");
+                reservasTableBody.innerHTML = "";
 
-            for (const key in reservasData) {
-                if (reservasData.hasOwnProperty(key)) {
-                    const reserva = reservasData[key];
-                    const dataReserva = new Date(reserva.dataReserva);
+                for (const key in reservasData) {
+                    if (reservasData.hasOwnProperty(key)) {
+                        const reserva = reservasData[key];
+                        const dataReserva = new Date(reserva.dataReserva);
 
-                    if (dataReserva >= today) {
-                        const newRow = document.createElement("tr");
-                        newRow.innerHTML = `
-                            <td>${formatDate(dataReserva)}</td>
-                            <td>${reserva.nomeCliente}</td>
-                            <td>${reserva.horarioReserva}</td>
-                            <td>${reserva.numeroMesa}</td>
-                            <td>${reserva.numeroPessoas}</td>
-                            <td>
-                                <button class="edit-button" data-key="${reserva.nomeCliente}">Editar</button>
-                                <button class="delete-button" data-key="${reserva.nomeCliente}">Excluir</button>
-                            </td>
-                        `;
-                        reservasTableBody.appendChild(newRow);
+                        if (dataReserva >= today) {
+                            const newRow = document.createElement("tr");
+                            newRow.innerHTML = `
+                                <td>${formatDate(dataReserva)}</td>
+                                <td>${reserva.nomeCliente}</td>
+                                <td>${reserva.horarioReserva}</td>
+                                <td>${reserva.numeroMesa}</td>
+                                <td>${reserva.numeroPessoas}</td>
+                                <td>
+                                    <button class="edit-button" data-key="${reserva.nomeCliente}">Editar</button>
+                                    <button class="delete-button" data-key="${reserva.nomeCliente}">Excluir</button>
+                                </td>
+                            `;
+                            reservasTableBody.appendChild(newRow);
+                        }
                     }
                 }
+
+                document.querySelectorAll(".delete-button").forEach((button) => {
+                    button.addEventListener("click", (event) => {
+                        const nomeCliente = event.target.getAttribute("data-key");
+                        if (nomeCliente) {
+                            deleteReserva(nomeCliente);
+                        }
+                    });
+                });
+
+                document.querySelectorAll(".edit-button").forEach((button) => {
+                    button.addEventListener("click", (event) => {
+                        const nomeCliente = event.target.getAttribute("data-key");
+                        if (nomeCliente) {
+                            editReserva(nomeCliente);
+                        }
+                    });
+                });
             }
-
-            document.querySelectorAll(".delete-button").forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    const nomeCliente = event.target.getAttribute("data-key");
-                    if (nomeCliente) {
-                        deleteReserva(nomeCliente);
-                    }
-                });
-            });
-
-            document.querySelectorAll(".edit-button").forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    const nomeCliente = event.target.getAttribute("data-key");
-                    if (nomeCliente) {
-                        editReserva(nomeCliente);
-                    }
-                });
-            });
-        }
-    }).catch((error) => {
-        console.error("Erro ao obter os dados: " + error);
-    });
+        })
+        .catch((error) => {
+            console.error("Erro ao obter os dados: " + error);
+        });
 }
+
 
 
 loadReservasData();
