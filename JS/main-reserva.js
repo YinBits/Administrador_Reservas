@@ -116,8 +116,8 @@ function loadReservasData() {
                                 <td>${reserva.numeroMesa}</td>
                                 <td>${reserva.numeroPessoas}</td>
                                 <td>
-                                    <button class="edit-button" data-key="${reserva.nomeCliente}">Editar</button>
-                                    <button class="delete-button" data-key="${reserva.nomeCliente}">Excluir</button>
+                                    <button class="edit-button" data-key="${key}">Editar</button>
+                                    <button class="delete-button" data-key="${key}">Excluir</button>
                                 </td>
                             `;
                             reservasTableBody.appendChild(newRow);
@@ -127,18 +127,18 @@ function loadReservasData() {
 
                 document.querySelectorAll(".delete-button").forEach((button) => {
                     button.addEventListener("click", (event) => {
-                        const nomeCliente = event.target.getAttribute("data-key");
-                        if (nomeCliente) {
-                            deleteReserva(nomeCliente);
+                        const reservaKey = event.target.getAttribute("data-key");
+                        if (reservaKey) {
+                            deleteReserva(reservaKey);
                         }
                     });
                 });
 
                 document.querySelectorAll(".edit-button").forEach((button) => {
                     button.addEventListener("click", (event) => {
-                        const nomeCliente = event.target.getAttribute("data-key");
-                        if (nomeCliente) {
-                            editReserva(nomeCliente);
+                        const reservaKey = event.target.getAttribute("data-key");
+                        if (reservaKey) {
+                            editReserva(reservaKey);
                         }
                     });
                 });
@@ -149,6 +149,5 @@ function loadReservasData() {
         });
 }
 
-
-
 loadReservasData();
+
