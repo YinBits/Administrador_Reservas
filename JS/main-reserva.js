@@ -109,16 +109,16 @@ function montarTabela(reservasData) {
     for (const key in reservasData) {
         if (reservasData.hasOwnProperty(key)) {
             const reserva = reservasData[key];
-            const dataReserva = new Date(reserva.dataReserva);
+            const dataReserva = new Date(reserva[0]); // Acesse os campos usando índices numéricos
 
             if (dataReserva >= today) {
                 const newRow = document.createElement("tr");
                 newRow.innerHTML = `
                     <td>${formatDate(dataReserva)}</td>
-                    <td>${reserva.nomeCliente}</td> // Substitua pelo nome do cliente
-                    <td>${reserva.horarioReserva}</td>
-                    <td>${reserva.numeroMesa}</td>
-                    <td>${reserva.numeroPessoas}</td>
+                    <td>${reserva[1]}</td> // Substitua pelo nome do cliente
+                    <td>${reserva[3]}</td>
+                    <td>${reserva[2]}</td>
+                    <td>${reserva[4]}</td>
                     <td>
                         <button class="edit-button" data-key="${key}">Editar</button>
                         <button class="delete-button" data-key="${key}">Excluir</button>
