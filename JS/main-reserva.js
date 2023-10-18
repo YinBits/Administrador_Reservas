@@ -113,9 +113,13 @@ function loadReservasData() {
                 if (reservasData.hasOwnProperty(key)) {
                     const reserva = reservasData[key];
                     const newRow = document.createElement("tr");
+
+                    // Converte o número de data em formato "dd/mm/yyyy"
+                    const dataFormatada = formatDate(reserva.dataReserva);
+
                     newRow.innerHTML = `
                         <td>${reserva.nomeCliente}</td> <!-- Nome do Cliente -->
-                        <td>${formatDate(reserva.dataReserva)}</td> <!-- Data da Reserva -->
+                        <td>${dataFormatada}</td> <!-- Data da Reserva (formatada) -->
                         <td>${reserva.horarioReserva}</td> <!-- Horário da Reserva -->
                         <td>${reserva.numeroMesa}</td> <!-- Número da Mesa -->
                         <td>${reserva.numeroPessoas}</td> <!-- Número de Pessoas -->
