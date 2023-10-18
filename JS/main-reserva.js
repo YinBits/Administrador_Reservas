@@ -34,32 +34,7 @@ function editReserva(reservaKey) {
             if (snapshot.exists()) {
                 const itemData = snapshot.val();
 
-                // Obtenha o email do usuário autenticado
-                const user = firebase.auth().currentUser;
-                if (user) {
-                    const email = user.email;
-
-                    // Obtenha uma referência para o nó "Clientes" no banco de dados.
-                    const clientesRef = ref(db, "Usuário");
-
-                    // Use o email do cliente para buscar o nome associado no Firebase.
-                    get(clientesRef)
-                        .then((clienteSnapshot) => {
-                            if (clienteSnapshot.exists()) {
-                                const clientesData = clienteSnapshot.val();
-                                const nomeCliente = clientesData[email];
-
-                                // Agora, você tem o nome do cliente e pode usá-lo na tabela.
-                                document.getElementById("editItemName").value = nomeCliente;
-                            } else {
-                                // Se o email não for encontrado, trate esse caso adequadamente.
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Erro ao obter o nome do cliente: " + error);
-                        });
-                }
-
+                // Preencha o modal de edição com os dados atuais da reserva
                 document.getElementById("editItemDate").value = itemData[0]; // Data da reserva
                 document.getElementById("editItemTime").value = itemData[1]; // Horário da reserva
                 document.getElementById("editItemPessoas").value = itemData[2]; // Número de pessoas
