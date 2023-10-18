@@ -114,10 +114,11 @@ function loadReservasData() {
                     const reserva = reservasData[key];
                     const newRow = document.createElement("tr");
                     newRow.innerHTML = `
-                        <td>${formatDate(reserva[0])}</td> <!-- Data da reserva -->
-                        <td>${reserva[1]}</td> <!-- Horário da reserva -->
-                        <td>${reserva[3]}</td> <!-- Número da mesa -->
-                        <td>${reserva[2]}</td> <!-- Número de pessoas -->
+                        <td>${reserva.nomeCliente}</td> <!-- Nome do Cliente -->
+                        <td>${formatDate(reserva.dataReserva)}</td> <!-- Data da Reserva -->
+                        <td>${reserva.horarioReserva}</td> <!-- Horário da Reserva -->
+                        <td>${reserva.numeroMesa}</td> <!-- Número da Mesa -->
+                        <td>${reserva.numeroPessoas}</td> <!-- Número de Pessoas -->
                         <td>
                             <button class="edit-button" data-key="${key}">Editar</button>
                             <button class="delete-button" data-key="${key}">Excluir</button>
@@ -151,6 +152,7 @@ function loadReservasData() {
         console.error("Erro ao obter os dados: " + error);
     });
 }
+
 
 // Carregue os dados de reservas do Firebase e preencha a tabela
 loadReservasData();
