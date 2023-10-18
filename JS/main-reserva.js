@@ -158,12 +158,15 @@ function loadReservasData() {
             if (snapshot.exists()) {
                 const reservasData = snapshot.val();
                 montarTabela(reservasData); // Chama a função para montar a tabela com as reservas
+            } else {
+                console.error("Dados não encontrados ou não existem reservas.");
             }
         })
         .catch((error) => {
             console.error("Erro ao obter os dados: " + error);
         });
 }
+
 
 // Chame a função para carregar as reservas existentes ao inicializar a página.
 loadReservasData();
