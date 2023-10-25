@@ -1,0 +1,46 @@
+
+/* Estilo para todo el formulario con la fuente Poppins */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Estilo para los campos de entrada de texto */
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilo para las etiquetas */
+label {
+  font-weight: bold;
+}
+
+/* Estilo para el botón de envío */
+input[type="submit"] {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Estilo para los mensajes de error (puedes usar esto para validaciones) */
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+/* Estilo para un mensaje de éxito (puedes usar esto para confirmaciones) */
+.success {
+  color: green;
+  font-size: 12px;
+}
