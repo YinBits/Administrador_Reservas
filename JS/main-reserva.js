@@ -33,7 +33,12 @@ function editReserva(reservaKey) {
         .then((snapshot) => {
             if (snapshot.exists()) {
                 const itemData = snapshot.val();
-
+             
+                document.getElementById("editItemName").value = itemData.nomeCliente; // Nome do Cliente            
+                document.getElementById("editItemDate").value = itemData.dataReserva;// Data da reserva
+                document.getElementById("editItemTime").value = itemData.horarioReserva; // Horário da reserva
+                document.getElementById("editItemMesaNumber").value = itemData.numeroMesa; // Número da Mesa
+                document.getElementById("editItemPeopleNumber").value = itemData.numeroPessoas; // Número de pessoas
              
                 // Abra o modal de edição
                 openEditModal();
@@ -41,10 +46,12 @@ function editReserva(reservaKey) {
                 // Adicione um evento ao botão de confirmação de edição
                 document.getElementById("saveEditButton").addEventListener("click", () => {
                     const editedData = [
+             
+                        document.getElementById("editItemName").value, // Nome do Cliente            
                         document.getElementById("editItemDate").value, // Data da reserva
                         document.getElementById("editItemTime").value, // Horário da reserva
-                        document.getElementById("editItemPessoas").value, // Número de pessoas
-                        document.getElementById("editItemMesa").value, // Número da mesa
+                        document.getElementById("editItemMesaNumber").value, // Número da Mesa
+                        document.getElementById("editItemPeopleNumber").value, // Número de pessoas
                     ];
 
                     // Resto do código de edição
