@@ -45,16 +45,14 @@ function editReserva(reservaKey) {
 
                 // Adicione um evento ao botão de confirmação de edição
                 document.getElementById("saveEditButton").addEventListener("click", () => {
-                    const editedData = [
-             
-                        document.getElementById("editItemName").value, // Nome do Cliente            
-                        document.getElementById("editItemDate").value, // Data da reserva
-                        document.getElementById("editItemTime").value, // Horário da reserva
-                        document.getElementById("editItemMesaNumber").value, // Número da Mesa
-                        document.getElementById("editItemPeopleNumber").value, // Número de pessoas
-                    ];
+                    const editedData = {
+                    nomeCliente: document.getElementById("editItemName").value, // Nome do Cliente            
+                    dataReserva: document.getElementById("editItemDate").value, // Data da reserva
+                    horarioReserva: document.getElementById("editItemTime").value, // Horário da reserva
+                    numeroMesa: document.getElementById("editItemMesaNumber").value, // Número da Mesa
+                    numeroPessoas: document.getElementById("editItemPeopleNumber").value, // Número de pessoas
+                    };
 
-                    // Resto do código de edição
                     set(reservaItemRef, editedData)
                         .then(() => {
                             alert("Reserva editada com sucesso!");
