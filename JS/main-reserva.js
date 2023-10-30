@@ -64,10 +64,13 @@ function editReserva(reservaKey) {
                         });
                 });
             } else {
-                document.querySelector(".cancelEditButton").addEventListener("click", () => {
+                document.getElementById("cancelEditButton").addEventListener("click", () => {
                     closeEditModal();
                 });
             }
+            document.getElementById("cancelEditButton").addEventListener("click", () => {
+                closeEditModal();
+            });
         })
         .catch((error) => {
             console.error("Erro ao obter os dados para edição: " + error);
