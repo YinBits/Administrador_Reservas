@@ -34,12 +34,7 @@ function editReserva(reservaKey) {
             if (snapshot.exists()) {
                 const itemData = snapshot.val();
 
-                // Preencha o modal de edição com os dados atuais da reserva
-                document.getElementById("editItemDate").value = itemData[0]; // Data da reserva
-                document.getElementById("editItemTime").value = itemData[1]; // Horário da reserva
-                document.getElementById("editItemPessoas").value = itemData[2]; // Número de pessoas
-                document.getElementById("editItemMesa").value = itemData[3]; // Número da mesa
-
+             
                 // Abra o modal de edição
                 openEditModal();
 
