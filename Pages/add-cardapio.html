@@ -62,7 +62,7 @@
         <input type="text" name="descricao" id="descricao"><br>
 
         <label for="preco">Preço</label><br>
-        <input type="text" name="preco" id="preco"><br>
+        <input type="" name="preco" id="preco"><br>
 
         <input type="button" value="Cadastrar" id="cadastrarButton">
     </form>
@@ -94,11 +94,14 @@
 
         async function UploadImageAndData() {
             try {
+
+                const precoValue = parseFloat(document.getElementById("preco").value);
+            
                 const imageFile = document.getElementById("imageFile").files[0];
                 const nomeValue = document.getElementById("nome").value;
                 const categoriaValue = document.getElementById("categoria").value;
                 const descricaoValue = document.getElementById("descricao").value;
-                const precoValue = document.getElementById("preco").value;
+                
 
                 if (!imageFile) {
                     alert("Selecione uma imagem.");
