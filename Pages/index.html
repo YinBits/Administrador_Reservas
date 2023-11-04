@@ -2,59 +2,82 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Início</title>
-  <link rel="stylesheet" href="../CSS/style.css">
-  <link rel="stylesheet" href="../CSS/index.css">
-  <script src="../JS/session.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/tables.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <link rel="stylesheet" href="../CSS/botoes.css">
+
 </head>
 
 <body>
-  <header>
-    <nav>
-      <div class="navbar">
-        <div class="container nav-container">
-          <input class="checkbox" type="checkbox" name="" id="" />
-          <div class="hamburger-lines">
-            <span class="line line1"></span>
-            <span class="line line2"></span>
-            <span class="line line3"></span>
-          </div>
-          <div class="logo">
-            <img src="../IMG/Logo_Tina.png" class="logoimg">
-          </div>
-          <div class="menu-items">
-            <img src="../IMG/Logo_Tina.png" id="logoimg-menu" alt="">
-            <li><a href="index.html">Início</a></li>
-            <li><a href="reserva.html">Reserva de Mesas</a></li>
-            <li><a href="cardapio.html">Cardápio</a></li>
-            <li><a href="eventos.html">Eventos</a></li>
 
-          </div>
+    <header>
+        <nav>
+            <div class="navbar">
+                <div class="container nav-container">
+                    <input class="checkbox" type="checkbox" name="" id="" />
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                    <div class="logo">
+                        <img src="../IMG/Logo_Tina.png" class="logoimg">
+                    </div>
+                    <div class="menu-items">
+                        <img src="../IMG/Logo_Tina.png" id="logoimg-menu" alt="">
+                        <li><a href="index.html">Reserva de Mesas</a></li>
+                        <li><a href="cardapio.html">Cardápio</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="boxed">
+        <div class="container-fluid">
+            <h1 class="titulo">Sistema de Reserva</h1>
+            <br>
+            <p><a href="add-reservas.html" class="btn">Adicionar Reserva</a></p>
         </div>
-      </div>
-    </nav>
-  </header>
-  <div class="boxed">
-    <div class="col-1">
-      <h1 class="Titulo">Total de Reserva</h1>
-      <h3 class="subtitulo">Reservas do Dia: </h3>
-      <h3 class="subtitulo">Reservas da Semana: </h3>
-      <h3 class="subtitulo">Reservas do Mês: </h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Cliente</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Número da Mesa</th>
+                    <th>Número de Pessoas</th>
+                </tr>
+            </thead>
+            <tbody id="ReservasTableBody"></tbody>
+        </table>
     </div>
-    <div class="col-2">
-      <h1 class="Titulo">
-        Numero de Pratos
-      </h1>
 
 
-    </div>
-  </div>
-  </div>
-<footer>
-  
-</footer>
+    <!-- Modal de Edição -->
+    <div id="editModal">
+        <div class="modal-content">
+            <h2>Editar Item</h2>
+            <input type="text" id="editItemName" placeholder="Nome do Cliente"><br>
+            <input type="date" id="editItemDate" placeholder="Data"><br>
+            <input type="time" id="editItemTime" placeholder="Horário"><br>
+            <input type="text" id="editItemMesaNumber" placeholder="Número da Mesa"><br>
+            <input type="text" id="editItemPeopleNumber" placeholder="Número de Pessoas"><br>
+            <button id="saveEditButton">Salvar</button>
+            <button id="cancelEditButton">Cancelar</button>
+        </div>
+    </div>  
+
+    <!-- Import e Configuração do Firebase -->
+    <script type="module" src="../JS/main-reserva.js"></script>
+    <script src="../JS/session.js"></script>
+
 </body>
 
 </html>
