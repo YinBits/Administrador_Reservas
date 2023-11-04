@@ -17,19 +17,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+
+// Verifique se o usuário já está autenticado (sessão)
+const userLoggedIn = localStorage.getItem("userLoggedIn");
+if (userLoggedIn) {
+  // Se o usuário já estiver autenticado, redirecione para a página "Início"
+  window.location.href = "./Pages/index.html";
+}
+
+// Email e senha fixos para login
+const emailFixo = "brunomarcaldossantos9a@gmail.com";
+const senhaFixa = "123456";
+
 // Adicione um ouvinte de evento para o formulário de login
 document.getElementById("loginForm").addEventListener("submit", function (e) {
   e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const emailDigitado = document.getElementById("email").value;
+  const senhaDigitada = document.getElementById("password").value;
 
-  // Autenticação com Firebase
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Autenticação bem-sucedida
-      window.location.href = "./Pages/index.html"; // Redireciona para a página "Início"
-    })
-    .catch((error) => {
-      alert("Credenciais incorretas. Tente novamente.");
-    });
+  // Verifique se o email e a senha correspondem aos valores fixos
+  if (emailDigitado === emailFixo && senhaDigitada === senhaFixa) {
+    // Autenticação bem-sucedida
+    // Crie a sessão de usuário
+    localStorage.setItem("userLoggedIn", "true");
+    window.location.href = "./Pages/index.html"; // Redirecione para a página "Início"
+  } else {
+    alert("Credenciais incorretas. Tente novamente.");
+  }
 });
