@@ -97,12 +97,19 @@ function closeEditModal() {
 }
 
 function formatDate(date) {
-    const d = new Date(date);
-    const day = d.getDate().toString().padStart(2, '0');
-    const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
+    if (typeof date === 'string') {
+        const parts = date.split("-");
+        if (parts.length === 3) {
+            const day = parts[0];
+            const month = parts[1];
+            const year = parts[2];
+            return `${day}/${month}/${year}`;
+        }
+    }
+    return "Data inválida"; // Ou outra mensagem de erro, se preferir
 }
+
+
 
 // Função para carregar os dados de reservas e preencher a tabela
 function loadReservasData() {
@@ -163,3 +170,10 @@ function loadReservasData() {
 
 // Carregue os dados de reservas do Firebase e preencha a tabela
 loadReservasData();
+
+
+
+
+
+
+
