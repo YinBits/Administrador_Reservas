@@ -108,9 +108,9 @@ function formatDate(date) {
     }
     return "Data inválida"; // Ou outra mensagem de erro, se preferir
 }
+function loadReservasData(startDate, endDate) {
+    const today = new Date(); // Obtém a data de hoje
 
-// Função para carregar os dados de reservas e preencher a tabela
-function loadReservasData() {
     get(reservasRef).then((snapshot) => {
         if (snapshot.exists()) {
             const reservasData = snapshot.val();
@@ -120,23 +120,32 @@ function loadReservasData() {
             for (const key in reservasData) {
                 if (reservasData.hasOwnProperty(key)) {
                     const reserva = reservasData[key];
-                    const newRow = document.createElement("tr");
+                    const dataReserva = new Date(reserva.dataReserva);
 
-                    // Converte o número de data em formato "dd/mm/yyyy"
-                    const dataFormatada = formatDate(reserva.dataReserva);
+                    // Verifique se a data da reserva está dentro do intervalo especificado
+                    if (
+                        (!startDate || dataReserva >= startDate) &&
+                        (!endDate || dataReserva <= endDate) &&
+                        dataReserva >= today // Garanta que a data da reserva seja igual ou posterior à data de hoje
+                    ) {
+                        const newRow = document.createElement("tr");
 
-                    newRow.innerHTML = `
-                        <td>${reserva.nomeCliente}</td> <!-- Nome do Cliente -->
-                        <td>${dataFormatada}</td> <!-- Data da Reserva (formatada) -->
-                        <td>${reserva.horarioReserva}</td> <!-- Horário da Reserva -->
-                        <td>${reserva.numeroMesa}</td> <!-- Número da Mesa -->
-                        <td>${reserva.numeroPessoas}</td> <!-- Número de Pessoas -->
-                        <td>
-                            <button class="edit-button" data-key="${key}">Editar</button>
-                            <button class="delete-button" data-key="${key}">Excluir</button>
-                        </td>
-                    `;
-                    reservasTableBody.appendChild(newRow);
+                        // Converte o número de data em formato "dd/mm/yyyy"
+                        const dataFormatada = formatDate(reserva.dataReserva);
+
+                        newRow.innerHTML = `
+                            <td>${reserva.nomeCliente}</td> <!-- Nome do Cliente -->
+                            <td>${dataFormatada}</td> <!-- Data da Reserva (formatada) -->
+                            <td>${reserva.horarioReserva}</td> <!-- Horário da Reserva -->
+                            <td>${reserva.numeroMesa}</td> <!-- Número da Mesa -->
+                            <td>${reserva.numeroPessoas}</td> <!-- Número de Pessoas -->
+                            <td>
+                                <button class="edit-button" data-key="${key}">Editar</button>
+                                <button class="delete-button" data-key="${key}">Excluir</button>
+                            </td>
+                        `;
+                        reservasTableBody.appendChild(newRow);
+                    }
                 }
             }
 
