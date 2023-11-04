@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Cadastro de Pratos</title>
+    <link rel="stylesheet" href="../CSS/addcardapio.css">
     <style>
         /* Estilo para todo el formulario con la fuente Poppins */
         body {
@@ -26,13 +27,7 @@
         }
 
         /* Estilo para los campos de entrada de texto y botón */
-        input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+       
 
         input[type="button"] {
             background-color: #007BFF;
@@ -48,22 +43,37 @@
 <body>
     <h1>Sistema de Cardápio</h1>
     <h2>Cadastro de Prato</h2>
-    <form action="add-action-cardapio.php">
-        <label for="image">Foto do Prato</label> <br>
-        <input type="file" accept="image/*" id="imageFile"><br>
+    <form>
+        <div class="caixa-campo">
+            <label for="image">Foto do Prato</label> <br>
+            <input type="file" accept="image/*" id="imageFile" required class="campo-cadastro"><br>
+        </div>
 
-        <label for="nome">Nome</label><br>
-        <input type="text" name="nome" id="nome"><br>
+        <div class="caixa-campo">
+            <label for="nome">Nome</label><br>
+            <input type="text" name="nome" id="nome" required class="campo-cadastro"><br>
+        </div>
 
-        <label for="categoria">Categoria</label><br>
-        <input type="text" name="categoria" id="categoria"><br>
+        <div class="lista-categorias caixa-campo">
+            <label for="categoria">Categoria</label><br>
+            <select name="categoria" id="categoria" required class="campo-cadastro ">
+                <option value="Pratos">Pratos</option>
+                <option value="Porções">Porções</option>
+                <option value="Pizzas">Pizzas</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Doces">Doces</option>
+            </select>
+        </div>
 
-        <label for="descricao">Descrição</label><br>
-        <input type="text" name="descricao" id="descricao"><br>
+        <div class="caixa-campo">
+            <label for="descricao">Descrição</label><br>
+            <input type="text" name="descricao" id="descricao" required class="campo-cadastro"><br>
+        </div>
 
-        <label for="preco">Preço</label><br>
-        <input type="" name="preco" id="preco"><br>
-
+        <div class="caixa-campo">
+            <label for="preco">Preço</label><br>
+            <input type="text" name="preco" id="preco" required class="campo-cadastro campo-descricao" maxlength="150"><br>
+        </div>
         <input type="button" value="Cadastrar" id="cadastrarButton">
     </form>
 

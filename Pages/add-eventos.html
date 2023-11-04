@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>Cadastro de Eventos</title>
+    <link rel="stylesheet" href="../CSS/addeventos.css">
     <style>
-        
+        /* Estilo para todo el formulario con la fuente Poppins */
         body {
             font-family: 'Poppins', sans-serif;
         }
@@ -26,13 +27,7 @@
         }
 
         /* Estilo para los campos de entrada de texto y botón */
-        input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        
 
         input[type="button"] {
             background-color: #007BFF;
@@ -46,18 +41,23 @@
 </head>
 
 <body>
-    <h1>Sistema de Eventos</h1>
-    <h2>Cadastro de Evento</h2>
+    <h1 class="t1">Sistema de Eventos</h1>
+    <h2 class="t2">Cadastro de Evento</h2>
     <form>
-        <label for="nomeEvento">Nome do Evento</label><br>
-        <input type="text" name="nomeEvento" id="nomeEvento"><br>
+        <div class="caixa-campo">
+            <label for="nomeEvento">Nome do Evento</label><br>
+            <input type="text" name="nomeEvento" id="nomeEvento"  required class="campo-cadastro"><br>
+        </div>
 
-        <label for="dataEvento">Data do Evento</label><br>
-        <input type="date" name="dataEvento" id="dataEvento"><br>
+        <div class="caixa-campo">
+            <label for="dataEvento">Data do Evento</label><br>
+            <input type="date" name="dataEvento" id="dataEvento"  required class="campo-cadastro"><br>
+        </div>
 
-        <label for="descricaoEvento">Descrição do Evento</label><br>
-        <textarea name="descricaoEvento" id="descricaoEvento"></textarea><br>
-
+        <div class="caixa-campo">
+            <label for="descricaoEvento">Descrição do Evento</label><br>
+            <textarea name="descricaoEvento" id="descricaoEvento"  required maxlength="150"  class="campo-cadastro campo-descricao"></textarea><br>
+        </div>
         <input type="button" value="Cadastrar Evento" id="cadastrarEventoButton">
     </form>
 

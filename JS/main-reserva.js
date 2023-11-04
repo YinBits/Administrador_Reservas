@@ -97,7 +97,7 @@ function closeEditModal() {
 }
 
 function formatDate(date) {
-    if (typeof date === 'string') {
+    if (date) {
         const parts = date.split("-");
         if (parts.length === 3) {
             const day = parts[0];
@@ -108,8 +108,6 @@ function formatDate(date) {
     }
     return "Data inválida"; // Ou outra mensagem de erro, se preferir
 }
-
-
 
 // Função para carregar os dados de reservas e preencher a tabela
 function loadReservasData() {
@@ -170,10 +168,3 @@ function loadReservasData() {
 
 // Carregue os dados de reservas do Firebase e preencha a tabela
 loadReservasData();
-
-
-
-
-
-
-

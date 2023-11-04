@@ -1,0 +1,20 @@
+.btn{
+    background-color:brown;
+    border: none;
+    color: #fff;
+    padding: 10px 29px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 18px 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    animation: pulse 2s infinite;
+}
+.titulo{
+    text-align: center;
+    font-family: 'Trebuchet MS';
+    padding: 15px 25px;
+    font-size: 35px;
+}

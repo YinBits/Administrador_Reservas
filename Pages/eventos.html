@@ -8,31 +8,7 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/tables.css">
     <link rel="stylesheet" href="../CSS/modal.css">
-    <style>
-        .thumbnail {
-            max-width: 100px;
-            max-height: 100px;
-        }
-
-        #editModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        #editModal .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../CSS/botoes.css">
 
 </head>
 
@@ -67,15 +43,15 @@
         <div class="container-fluid">
             <h1 class="titulo">Sistema de Eventos</h1>
             <br>
-            <p><a href="add-eventos.html" class="btn btn-light">Adicionar Evento</a></p>
+            <p><a href="add-eventos.html" class="btn">Adicionar Evento</a></p>
         </div>
 
         <table>
             <thead>
                 <tr>
-                    <th>Nome do Evento</th>
-                    <th>Data do Evento</th>
-                    <th>Descrição</th>
+                    <th class="fonte">Nome do Evento</th>
+                    <th class="fonte">Data do Evento</th>
+                    <th class="fonte">Descrição</th>
                 </tr>
             </thead>
             <tbody id="EventosTableBody"></tbody>

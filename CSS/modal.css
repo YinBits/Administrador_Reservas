@@ -4,8 +4,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
     background-color: rgba(0, 0, 0, 0.7); /* Fundo escurecido */
 }
 
@@ -27,6 +27,8 @@
     font-size: 20px;
     cursor: pointer;
 }
+
+
 #editModal {
     display: none;
     position: fixed;
@@ -45,5 +47,8 @@
     background-color: #fff;
     padding: 20px;
 }
-
 /* Adicione mais estilos conforme necessário para o conteúdo do modal (campos de edição, botões etc.) */
+
+#saveEditButton #cancelEditButton{
+    background-color: brown;
+}
