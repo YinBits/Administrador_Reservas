@@ -30,7 +30,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Autenticação bem-sucedida
-      window.location.href = "./inicio.html"; // Redireciona para a página "Início"
+      window.location.href = "./Pages/index.html"; // Redireciona para a página "Início"
     })
     .catch((error) => {
       alert("Credenciais incorretas. Tente novamente.");
