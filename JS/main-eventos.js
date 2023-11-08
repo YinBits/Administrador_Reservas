@@ -97,12 +97,18 @@ function closeEditModal() {
 }
 
 function formatDate(date) {
-    const d = new Date(date);
-    const day = d.getDate().toString().padStart(2, '0');
-    const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const year = d.getFullYear();
+    if (typeof date === "string") {
+        date = new Date(date);
+    }
+
+    const day = date.getDate()+1;
+    const month = date.getMonth()+1; // 0-based
+    const year = date.getFullYear();
+
     return `${day}/${month}/${year}`;
 }
+
+
 
 // Função para carregar os dados de eventos e preencher a tabela
 function loadEventosData() {
